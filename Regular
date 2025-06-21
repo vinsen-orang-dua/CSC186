@@ -1,0 +1,74 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class Regular extends Customer{
+   private  boolean member;
+   private final String FILE_NAME = "Customer.txt";
+   
+   public Regular(int userID, String password, String custName, boolean 
+   member){
+       super(userID, password, custName);
+       this.member = member;
+   }
+   public void signUp(){
+        try{
+            if (userExists()){
+                System.out.println("Username already exists.");
+                return;
+            }
+            
+            FileWriter fw = new FileWriter(FILE_NAME, true);
+            fw.write(userID + "," + password + "," + custName + "," + 
+            member + "\n");
+            fw.close();
+            System.out.println("Sign up successful!");
+        }
+        catch (IOException e){
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+    public boolean login(){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
+            String line;
+            while ((line = br.readLine()) != null){
+                StringTokenizer st = new StringTokenizer(line, ",");
+                int savedUserID = Integer.parseInt(st.nextToken());
+                String savedPassword = st.nextToken();
+                String savedName = st.nextToken();
+                boolean savedMember = Boolean.parseBoolean(st.nextToken());
+                
+                if (savedUserID == userID && savedPassword.equals(password)){
+                    this.custName = savedName;
+                    br.close();
+                    return true;
+                }
+            }
+            br.close();
+        }
+        catch (IOException e){
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        return false;
+    }
+    public boolean userExists(){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
+            String line;
+            while ((line = br.readLine()) != null){
+                StringTokenizer st = new StringTokenizer(line, ",");
+                int savedUserID = Integer.parseInt(st.nextToken());
+                
+                if (savedUserID == userID){
+                    br.close();
+                    return true;
+                }
+            }
+            br.close();
+        }
+        catch (IOException e){
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        return false;
+    }
+}
