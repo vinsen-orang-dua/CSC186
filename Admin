@@ -1,0 +1,26 @@
+public class Admin extends User{
+   private String adminName;
+   
+   public Admin(int userID, String password, String adminName){
+       super(userID, password);
+       this.adminName = adminName;
+   }
+   public String getAdminName(){
+       return adminName;
+   }
+   public boolean adminLogin(){
+        final int adminID = 169171;
+        final String adminPass = "kapalLaud2";
+        
+        if (userID == adminID && password.equals(adminPass)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+   //public updatePrice(){}
+   //public disSales(){}
+   //public disItemSold(){}
+   //public disTotalCustomer(){}
+}
