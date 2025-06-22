@@ -1,0 +1,114 @@
+public class Food {
+    private double Ap = 5.00;
+    private double ATp = 6.00;
+    private double ATCp = 7.00;
+    private double Dp = 5.00;
+    private double DTp = 6.00;
+    private double DTCp = 7.00;
+    private double Cp = 13.95;
+    private double Bp = 13.95;
+
+    public Food(double Ap,double ATp,double ATCp,double Dp,double DTp,double DTCp,double Cp,double Bp){
+        this.Ap = Ap;
+        this.ATp = ATp;
+        this.ATCp = ATCp;
+        this.Dp = Dp;
+        this.DTp = DTp;
+        this.DTCp = DTCp;
+        this.Cp = Cp;
+        this.Bp = Bp;
+    }
+
+     public void setAp(double Ap) {
+        this.Ap = Ap;
+    }
+
+    public void setATp(double ATp) {
+        this.ATp = ATp;
+    }
+
+    public void setATCp(double ATCp) {
+        this.ATCp = ATCp;
+    }
+
+    public void setDp(double Dp) {
+        this.Dp = Dp;
+    }
+
+    public void setDTp(double DTp) {
+        this.DTp = DTp;
+    }
+
+    public void setDTCp(double DTCp) {
+        this.DTCp = DTCp;
+    }
+
+    public void setCp(double Cp) {
+        this.Cp = Cp;
+    }
+
+    public void setBp(double Bp) {
+        this.Bp = Bp;
+    }
+
+     public double getAp() {
+        return Ap;
+    }
+
+    public double getATp() {
+        return ATp;
+    }
+
+    public double getATCp() {
+        return ATCp;
+    }
+
+    public double getDp() {
+        return Dp;
+    }
+
+    public double getDTp() {
+        return DTp;
+    }
+
+    public double getDTCp() {
+        return DTCp;
+    }
+
+    public double getCp() {
+        return Cp;
+    }
+
+    public double getBp() {
+        return Bp;
+    }
+    
+    public String getFoodList() {
+        return "                                                           " +  
+        "\n+-----------------------------------------------------------+" +
+        "\n|    Code    |        Food              |      Price        |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|            |       [Burger]           |                   |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     A      |         Ayam             |     RM " + String.format("%-5.2f", Ap) + "      |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     AT     |      Ayam + Telur        |     RM " + String.format("%-5.2f", ATp)+ "      |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     ATC    |  Ayam + Telur + Cheese   |     RM " + String.format("%-5.2f", ATCp) +"      |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     D      |        Daging            |     RM " + String.format("%-5.2f", Dp) + "      |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     DT     |     Daging + Telur       |     RM " + String.format("%-5.2f", DTp) + "      |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     DTC    |  Daging + Telur + Cheese |     RM " + String.format("%-5.2f", DTCp) +"      |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|            |       [Spaghetti]        |                   |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     C      |        Carbonara         |     RM " + String.format("%-6.2f", Cp) + "     |" +
+        "\n|------------|--------------------------|-------------------|" +
+        "\n|     B      |        Bolognese         |     RM " + String.format("%-6.2f", Bp) + "     |" +
+        "\n+-----------------------------------------------------------+";
+        }
+
+
+}
