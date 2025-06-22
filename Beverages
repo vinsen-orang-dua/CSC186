@@ -1,0 +1,85 @@
+public class Beverages{
+    private double WJp = 7.00;
+    private double HJp = 8.00;
+    private double TChp = 4.50;
+    private double TCcp = 5.00;
+    private double LThp = 4.50;
+    private double LTcp = 5.00;
+
+
+    public Beverages(double WJp,double HJp,double TChp,double TCcp,double LThp,double LTcp) {
+        this.WJp = WJp;
+        this.HJp = HJp;
+        this.TChp = TChp;
+        this.TCcp = TCcp;
+        this.LThp = LThp;
+        this.LTcp = LTcp;
+    }
+
+      public void setWJp(double WJp) {
+        this.WJp = WJp;
+    }
+
+    public void setHJp(double HJp) {
+        this.HJp = HJp;
+    }
+
+    public void setTChp(double TChp) {
+        this.TChp = TChp;
+    }
+
+    public void setTCcp(double TCcp) {
+        this.TCcp = TCcp;
+    }
+
+    public void setLThp(double LThp) {
+        this.LThp = LThp;
+    }
+
+    public void setLTcp(double LTcp) {
+        this.LTcp = LTcp;
+    }
+
+        public double getWJp() {
+        return WJp;
+    }
+
+    public double getHJp() {
+        return HJp;
+    }
+
+    public double getTChp() {
+        return TChp;
+    }
+
+    public double getTCcp() {
+        return TCcp;
+    }
+
+    public double getLThp() {
+        return LThp;
+    }
+
+    public double getLTcp() {
+        return LTcp;
+    } 
+    
+    public String getBeveList() {
+        return "\n" +
+        "+----------------------------------------------------------+\n" +
+        "|  Code   |      Beverages       |         Price           |\n" +
+        "|---------|----------------------|-------------------------|\n" +
+        "|         |    [Minuman Bujang]  |                         |\n" +
+        "|---------|----------------------|-------------------------|\n" +
+        "|   WJ    |   Watermelon Juice   |        RM " + String.format("%-5.2f", WJp) + "         |\n" +
+        "|---------|----------------------|-------------------------|\n" +
+        "|   HJ    |    Honeydew Juice    |        RM " + String.format("%-5.2f", HJp) + "         |\n" +
+        "|---------|----------------------|-------------------------|\n" +
+        "|         |    [Minuman Lega]    |    Hot     |    Cold    |\n" +
+        "|---------|----------------------|------------|------------|\n" +
+        "|   TC    |        Teh C         |  RM " + String.format("%-5.2f", TChp) + "  |  RM " + String.format("%-5.2f", TCcp) + "  |\n" +
+        "|---------|----------------------|------------|------------|\n" +
+        "|   LT    |      Lemon Tea       |  RM " + String.format("%-5.2f", LThp) + "  |  RM " + String.format("%-5.2f", LTcp) + "  |\n" +
+        "+----------------------------------------------------------+";
+        }
+}
