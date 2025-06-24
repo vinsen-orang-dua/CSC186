@@ -1,23 +1,12 @@
 public class Food {
-    private double Ap = 5.00;
-    private double ATp = 6.00;
-    private double ATCp = 7.00;
-    private double Dp = 5.00;
-    private double DTp = 6.00;
-    private double DTCp = 7.00;
-    private double Cp = 13.95;
-    private double Bp = 13.95;
-
-    public Food(double Ap,double ATp,double ATCp,double Dp,double DTp,double DTCp,double Cp,double Bp){
-        this.Ap = Ap;
-        this.ATp = ATp;
-        this.ATCp = ATCp;
-        this.Dp = Dp;
-        this.DTp = DTp;
-        this.DTCp = DTCp;
-        this.Cp = Cp;
-        this.Bp = Bp;
-    }
+    double Ap = 5.00;
+    double ATp = 6.00;
+    double ATCp = 7.00;
+    double Dp = 5.00;
+    double DTp = 6.00;
+    double DTCp = 7.00;
+    double Cp = 13.95;
+    double Bp = 13.95;
 
      public void setAp(double Ap) {
         this.Ap = Ap;
