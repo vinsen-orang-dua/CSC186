@@ -1,0 +1,46 @@
+public class OrderDetail{
+    private String foodOrdered;
+    private String beverageOrdered;
+    private double totalPrice;
+    
+    public OrderDetail(String foodOrdered, String beverageOrdered, double totalPrice){
+        this.foodOrdered = foodOrdered;
+        this.beverageOrdered = beverageOrdered;
+        this.totalPrice = totalPrice;
+    }
+    //le setter
+    public void setFoodOredered(String foodOredered){
+        this.foodOrdered = foodOrdered;
+    }
+    public void setBeverageOrdered(String beverageOrdered){
+        this.beverageOrdered = beverageOrdered;
+    }
+    public void seTotalPrice(double totalPrice){
+        this.totalPrice = totalPrice;
+    }
+    //le getter
+    public String getFoodOrdered(){
+        return this.foodOrdered;
+    }
+    public String getBeverageOrdered(){
+        return this.beverageOrdered;
+    }
+    public double getTotalPrice(){
+        return this.totalPrice;
+    }
+    //To calculate total Price of the ordered.
+    public double calcTotalPrice(){
+        double foodPrice = 0.0;
+        double beveragePrice = 0.0;
+        
+        return foodPrice + beveragePrice;
+    }
+    
+    public String toString(){
+        return "Food Ordered: "+ foodOrdered + "\n BeverageOrdered: " + beverageOrdered + "\n Total Price: "+ totalPrice;
+        
+        
+    }
+
+}
+
