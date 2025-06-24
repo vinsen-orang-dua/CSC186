@@ -1,9 +1,14 @@
+import java.util.Scanner;
 public class Admin extends User{
    private String adminName;
+   private Food foodMenu;
+   private Beverages beverageMenu;
    
-   public Admin(int userID, String password, String adminName){
+   public Admin(int userID, String password, String adminName,Food foodMenu, Beverages beverageMenu){
        super(userID, password);
        this.adminName = adminName;
+       this.foodMenu = foodMenu;
+       this.beverageMenu = beverageMenu;
    }
    public String getAdminName(){
        return adminName;
@@ -19,7 +24,51 @@ public class Admin extends User{
             return false;
         }
     }
-   //public updatePrice(){}
+    public void updatePrice(String code,double nPrice){
+        
+        if (code.equalsIgnoreCase("A")) {
+            foodMenu.setAp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("AT")) {
+            foodMenu.setATp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("ATC")) {
+            foodMenu.setATCp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("D")) {
+            foodMenu.setDp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("DT")) {
+            foodMenu.setDTp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("DTC")) {
+            foodMenu.setDTCp(nPrice);
+        }   
+        else if (code.equalsIgnoreCase("B")) {
+            foodMenu.setBp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("C")) {
+            foodMenu.setCp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("WJ")) {
+            beverageMenu.setWJp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("HJ")) {
+            beverageMenu.setHJp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("LTh")) {
+            beverageMenu.setLThp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("LTc")) {
+            beverageMenu.setLTcp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("TCh")) {
+            beverageMenu.setTChp(nPrice);
+        }
+        else if (code.equalsIgnoreCase("TCc")) {
+            beverageMenu.setTCcp(nPrice);
+        }
+    }
    //public disSales(){}
    //public disItemSold(){}
    //public disTotalCustomer(){}
