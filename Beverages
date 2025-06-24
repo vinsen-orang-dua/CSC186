@@ -6,16 +6,6 @@ public class Beverages{
     private double LThp = 4.50;
     private double LTcp = 5.00;
 
-
-    public Beverages(double WJp,double HJp,double TChp,double TCcp,double LThp,double LTcp) {
-        this.WJp = WJp;
-        this.HJp = HJp;
-        this.TChp = TChp;
-        this.TCcp = TCcp;
-        this.LThp = LThp;
-        this.LTcp = LTcp;
-    }
-
       public void setWJp(double WJp) {
         this.WJp = WJp;
     }
