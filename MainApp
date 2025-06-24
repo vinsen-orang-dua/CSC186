@@ -4,6 +4,8 @@ public class MainApp{
     public static void main(){
         Scanner input = new Scanner(System.in);
         char key;
+         Food foodMenu = new Food();  // Original menu
+        Beverages beverageMenu = new Beverages();
         
         System.out.println("+--------------------------------+");
         System.out.println("|   WELCOME TO CAFE KAPAL LAUD   |");
@@ -36,7 +38,7 @@ public class MainApp{
                     System.out.print("Enter Admin Password: ");
                     String password = input.nextLine();
                 
-                    Admin admin = new Admin(userID, password, "Elberthete");
+                    Admin admin = new Admin(userID, password, "Elberthete", foodMenu, beverageMenu);
 
                     if (admin.adminLogin()){
                         System.out.println("\nWelcome Admin, " + admin.getAdminName() + " :)");
@@ -46,6 +48,8 @@ public class MainApp{
                             System.out.println("|    1   |   View  Sales       |");
                             System.out.println("|------------------------------|");
                             System.out.println("|    2   |   View Items Sold   |");
+                            System.out.println("|------------------------------|");
+                            System.out.println("|    3   |   Update Price      |");
                             System.out.println("|------------------------------|");
                             System.out.println("|    M   |   Main Menu         |");
                             System.out.println("+------------------------------+");
@@ -65,6 +69,17 @@ public class MainApp{
                             }
                             else if (choice.equalsIgnoreCase("M")){
                                 break;
+                            }
+                            else if (choice.equals("3")){
+                                System.out.println("Enter code: ");
+                                String code = input.nextLine();
+                                System.out.println("Enter new price: RM");
+                                double nPrice = input.nextDouble();
+                                System.out.println("Price Updated Successful!!");
+                                input.nextLine();
+                             
+                                
+                                admin.updatePrice(code, nPrice);
                             }
                             else {
                                 System.out.println("Invalid option.Please try again.");
@@ -152,7 +167,17 @@ public class MainApp{
                                 loginSuccess = true;
                                 System.out.println("");
                                 
-                                //add code
+                                System.out.println("What do you want to order? [1/Food or 2/Beverages]");
+                                int pick = input.nextInt();
+                                input.nextLine();
+                                if (pick == 1) {
+                                    System.out.println(foodMenu.getFoodList());
+                                    input.nextLine();
+                                }
+                                else if (pick == 2) {
+                                   System.out.println(beverageMenu.getBeveList());
+                                   input.nextLine();
+                                }
                     
                             }
                             else{
