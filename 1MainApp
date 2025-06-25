@@ -49,8 +49,10 @@ public class MainApp{
                             System.out.println("|------------------------------|");
                             System.out.println("|    2   |   View Items Sold   |");
                             System.out.println("|------------------------------|");
-                            System.out.println("|    3   |   Update Price      |");
+                            System.out.println("|    3   |   Update Menu       |");
                             System.out.println("|------------------------------|");
+                            System.out.println("|    4   |   Display Customer  |");
+                            System.out.println("+------------------------------+");
                             System.out.println("|    M   |   Main Menu         |");
                             System.out.println("+------------------------------+");
                             System.out.print("Enter option: ");
@@ -80,6 +82,9 @@ public class MainApp{
                              
                                 
                                 admin.updatePrice(code, nPrice);
+                            }
+                            else if (choice.equals("4")){
+                                admin.disTotalCustomer();
                             }
                             else {
                                 System.out.println("Invalid option.Please try again.");
