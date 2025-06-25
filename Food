@@ -1,103 +1,89 @@
 public class Food {
-    double Ap = 5.00;
-    double ATp = 6.00;
-    double ATCp = 7.00;
-    double Dp = 5.00;
-    double DTp = 6.00;
-    double DTCp = 7.00;
-    double Cp = 13.95;
-    double Bp = 13.95;
 
-     public void setAp(double Ap) {
-        this.Ap = Ap;
+    //food prices
+    private double Ap = 5.00;
+    private double ATp = 6.00;
+    private double ATCp = 7.00;
+    private double Dp = 5.00;
+    private double DTp = 6.00;
+    private double DTCp = 7.00;
+    private double Cp = 13.95;
+    private double Bp = 13.95;
+
+    //item availability status
+    private boolean ApCheck = true;
+    private boolean ATpCheck = true;
+    private boolean ATCpCheck = false;
+    private boolean DpCheck = true;
+    private boolean DTpCheck = true;
+    private boolean DTCpCheck = false;
+    private boolean CpCheck = false;
+    private boolean BpCheck = true;
+
+    //price setter
+    public void setAp(double Ap) { this.Ap = Ap; }
+    public void setATp(double ATp) { this.ATp = ATp; }
+    public void setATCp(double ATCp) { this.ATCp = ATCp; }
+    public void setDp(double Dp) { this.Dp = Dp; }
+    public void setDTp(double DTp) { this.DTp = DTp; }
+    public void setDTCp(double DTCp) { this.DTCp = DTCp; }
+    public void setCp(double Cp) { this.Cp = Cp; }
+    public void setBp(double Bp) { this.Bp = Bp; }
+
+    //price getter
+    public double getAp() { return Ap; }
+    public double getATp() { return ATp; }
+    public double getATCp() { return ATCp; }
+    public double getDp() { return Dp; }
+    public double getDTp() { return DTp; }
+    public double getDTCp() { return DTCp; }
+    public double getCp() { return Cp; }
+    public double getBp() { return Bp; }
+
+    //status setter
+    public void setApCheck(boolean check) { this.ApCheck = check; }
+    public void setATpCheck(boolean check) { this.ATpCheck = check; }
+    public void setATCpCheck(boolean check) { this.ATCpCheck = check; }
+    public void setDpCheck(boolean check) { this.DpCheck = check; }
+    public void setDTpCheck(boolean check) { this.DTpCheck = check; }
+    public void setDTCpCheck(boolean check) { this.DTCpCheck = check; }
+    public void setCpCheck(boolean check) { this.CpCheck = check; }
+    public void setBpCheck(boolean check) { this.BpCheck = check; }
+
+    //status getter
+    public boolean isApCheck() { return ApCheck; }
+    public boolean isATpCheck() { return ATpCheck; }
+    public boolean isATCpCheck() { return ATCpCheck; }
+    public boolean isDpCheck() { return DpCheck; }
+    public boolean isDTpCheck() { return DTpCheck; }
+    public boolean isDTCpCheck() { return DTCpCheck; }
+    public boolean isCpCheck() { return CpCheck; }
+    public boolean isBpCheck() { return BpCheck; }
+
+    // Helper method for status display
+    private String status(boolean check) {
+        return check ? "Available" : "Out of Order";
     }
 
-    public void setATp(double ATp) {
-        this.ATp = ATp;
-    }
-
-    public void setATCp(double ATCp) {
-        this.ATCp = ATCp;
-    }
-
-    public void setDp(double Dp) {
-        this.Dp = Dp;
-    }
-
-    public void setDTp(double DTp) {
-        this.DTp = DTp;
-    }
-
-    public void setDTCp(double DTCp) {
-        this.DTCp = DTCp;
-    }
-
-    public void setCp(double Cp) {
-        this.Cp = Cp;
-    }
-
-    public void setBp(double Bp) {
-        this.Bp = Bp;
-    }
-
-     public double getAp() {
-        return Ap;
-    }
-
-    public double getATp() {
-        return ATp;
-    }
-
-    public double getATCp() {
-        return ATCp;
-    }
-
-    public double getDp() {
-        return Dp;
-    }
-
-    public double getDTp() {
-        return DTp;
-    }
-
-    public double getDTCp() {
-        return DTCp;
-    }
-
-    public double getCp() {
-        return Cp;
-    }
-
-    public double getBp() {
-        return Bp;
-    }
-    
+    // Menu display
     public String getFoodList() {
-        return "                                                           " +  
-        "\n+-----------------------------------------------------------+" +
-        "\n|    Code    |        Food              |      Price        |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|            |       [Burger]           |                   |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     A      |         Ayam             |     RM " + String.format("%-5.2f", Ap) + "      |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     AT     |      Ayam + Telur        |     RM " + String.format("%-5.2f", ATp)+ "      |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     ATC    |  Ayam + Telur + Cheese   |     RM " + String.format("%-5.2f", ATCp) +"      |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     D      |        Daging            |     RM " + String.format("%-5.2f", Dp) + "      |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     DT     |     Daging + Telur       |     RM " + String.format("%-5.2f", DTp) + "      |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     DTC    |  Daging + Telur + Cheese |     RM " + String.format("%-5.2f", DTCp) +"      |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|            |       [Spaghetti]        |                   |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     C      |        Carbonara         |     RM " + String.format("%-6.2f", Cp) + "     |" +
-        "\n|------------|--------------------------|-------------------|" +
-        "\n|     B      |        Bolognese         |     RM " + String.format("%-6.2f", Bp) + "     |" +
-        "\n+-----------------------------------------------------------+";
-        }
-
-
+        return "\n" +
+        "+-----------------------------------------------------------------------+\n" +
+        "|  Code   |          Food Name            |   Price   |     Status      |\n" +
+        "+---------+-------------------------------+-----------+-----------------+\n" +
+        "|         |          [Burger]             |           |                 |\n" +
+        "+---------+-------------------------------+-----------+-----------------+\n" +
+        String.format("|   A     | Ayam                          |  RM %-6.2f| %-15s |\n", Ap, status(ApCheck)) +
+        String.format("|   AT    | Ayam + Telur                  |  RM %-6.2f| %-15s |\n", ATp, status(ATpCheck)) +
+        String.format("|  ATC    | Ayam + Telur + Cheese         |  RM %-6.2f| %-15s |\n", ATCp, status(ATCpCheck)) +
+        String.format("|   D     | Daging                        |  RM %-6.2f| %-15s |\n", Dp, status(DpCheck)) +
+        String.format("|   DT    | Daging + Telur                |  RM %-6.2f| %-15s |\n", DTp, status(DTpCheck)) +
+        String.format("|  DTC    | Daging + Telur + Cheese       |  RM %-6.2f| %-15s |\n", DTCp, status(DTCpCheck)) +
+        "+---------+-------------------------------+-----------+-----------------+\n" +
+        "|         |         [Spaghetti]           |           |                 |\n" +
+        "+---------+-------------------------------+-----------+-----------------+\n" +
+        String.format("|   C     | Carbonara                     |  RM %-6.2f| %-15s |\n", Cp, status(CpCheck)) +
+        String.format("|   B     | Bolognese                     |  RM %-6.2f| %-15s |\n", Bp, status(BpCheck)) +
+        "+-----------------------------------------------------------------------+";
+    }
 }
