@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.io.*;
+
 public class Admin extends User{
    private String adminName;
    private Food foodMenu;
@@ -14,8 +17,8 @@ public class Admin extends User{
        return adminName;
    }
    public boolean adminLogin(){
-        final int adminID = 169171;
-        final String adminPass = "kapalLaud2";
+        final int adminID = 123;
+        final String adminPass = "admin";
         
         if (userID == adminID && password.equals(adminPass)){
             return true;
@@ -71,5 +74,30 @@ public class Admin extends User{
     }
    //public disSales(){}
    //public disItemSold(){}
-   //public disTotalCustomer(){}
+    public static void disTotalCustomer(){
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Customer.txt"));
+            String line;
+    
+            System.out.println("+------------+----------------------+-------------+");
+            System.out.println("|  User ID   |     Customer Name    |   Type      |");
+            System.out.println("+------------+----------------------+-------------+");
+    
+            while ((line = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(line, ",");
+                int userID = Integer.parseInt(st.nextToken());
+                st.nextToken(); // skip password
+                String name = st.nextToken();
+                boolean isMember = Boolean.parseBoolean(st.nextToken());
+    
+                String type = isMember ? "Member" : "Regular";
+                System.out.printf("| %-10d | %-20s | %-11s |\n", userID, name, type);
+            }
+    
+            System.out.println("+------------+----------------------+-------------+");
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+    }
 }
