@@ -1,0 +1,218 @@
+import java.util.*;
+import java.util.Scanner;
+
+public class MainApp {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        char key;
+        Food foodMenu = new Food(); 
+        Beverages beverageMenu = new Beverages();
+
+        System.out.println("+--------------------------------+");
+        System.out.println("|   WELCOME TO CAFE KAPAL LAUD   |");
+        System.out.println("+--------------------------------+");
+        System.out.print("Press any key [Q] to continue: ");
+        key = input.next().charAt(0);
+        input.nextLine();
+        System.out.println("");
+
+        int opt = -1;
+        do {
+            try {
+                System.out.println("+----------------+");
+                System.out.println("|  1 | Admin     |");
+                System.out.println("+----------------+");
+                System.out.println("|  2 | Customer  |");
+                System.out.println("+----------------+");
+                System.out.println("|  0 | Exit      |");
+                System.out.println("+----------------+");
+                System.out.print("Choose option [1/2/0]: ");
+                opt = input.nextInt();
+                input.nextLine();
+                System.out.println("");
+
+                if (opt == 1) {
+                    // Admin Section
+                    do {
+                        try {
+                            System.out.print("Enter Admin ID: ");
+                            int userID = input.nextInt();
+                            input.nextLine();
+                            System.out.print("Enter Admin Password: ");
+                            String password = input.nextLine();
+
+                            Admin admin = new Admin(userID, password, "Elberthete", foodMenu, beverageMenu);
+
+                            if (admin.adminLogin()) {
+                                System.out.println("\nWelcome Admin, " + admin.getAdminName() + " :)");
+                                String choice;
+                                do {
+                                    System.out.println("+------------------------------+");
+                                    System.out.println("|    1   |   View  Sales       |");
+                                    System.out.println("|------------------------------|");
+                                    System.out.println("|    2   |   View Items Sold   |");
+                                    System.out.println("|------------------------------|");
+                                    System.out.println("|    3   |   Update Menu       |");
+                                    System.out.println("|------------------------------|");
+                                    System.out.println("|    4   |   Display Customer  |");
+                                    System.out.println("+------------------------------+");
+                                    System.out.println("|    M   |   Main Menu         |");
+                                    System.out.println("+------------------------------+");
+                                    System.out.print("Enter option: ");
+                                    choice = input.nextLine();
+                                    System.out.println("");
+
+                                    switch (choice) {
+                                        case "1":
+                                            System.out.println("view sales");
+                                            break;
+                                        case "2":
+                                            System.out.println("view items sold");
+                                            break;
+                                        case "3":
+                                            System.out.print("Enter code: ");
+                                            String code = input.nextLine();
+                                            try {
+                                                System.out.print("Enter new price: RM");
+                                                double nPrice = input.nextDouble();
+                                                input.nextLine();
+                                                admin.updatePrice(code, nPrice);
+                                                System.out.println("Price Updated Successfully!");
+                                            } catch (InputMismatchException e) {
+                                                System.out.println("Invalid price input. Please enter a valid number.");
+                                                input.nextLine();
+                                            }
+                                            break;
+                                        case "4":
+                                            admin.disTotalCustomer();
+                                            break;
+                                        case "M"://works as equalsIgnoreCase
+                                        case "m"://used switch case for a cleaner code
+                                            break;
+                                        default:
+                                            System.out.println("Invalid option. Please try again.");
+                                            break;
+                                    }
+                                } while (!choice.equalsIgnoreCase("M"));
+                                break;
+                            } else {
+                                System.out.println("Invalid Admin ID or Password :(");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input! Please enter correct data.");
+                            input.nextLine();
+                        }
+                    } while (true);
+                }
+
+                else if (opt == 2) {
+                    // Customer Section
+                    String choice;
+                    do {
+                        System.out.println("+-------------+");
+                        System.out.println("| 1 | Sign Up |");
+                        System.out.println("+-------------+");
+                        System.out.println("| 2 | Login   |");
+                        System.out.println("+-------------+");
+                        System.out.println("| B | Back    |");
+                        System.out.println("+-------------+");
+                        System.out.print("Choose option [1/2/B]: ");
+                        choice = input.nextLine();
+                        System.out.println("");
+
+                        if (choice.equals("1")) {
+                            try {
+                                System.out.print("Enter user ID (3 integer): ");
+                                int userID = input.nextInt();
+                                input.nextLine();
+
+                                System.out.print("Enter password: ");
+                                String password = input.nextLine();
+
+                                System.out.print("Enter your name: ");
+                                String custName = input.nextLine();
+
+                                System.out.print("Do you wanna register as our member?");
+                                System.out.print("\nPress 1 if YES | Press 2 if NO: ");
+                                int option = input.nextInt();
+                                input.nextLine();
+
+                                if (option == 1) {
+                                    Customer membership = new Membership(userID, password, custName, true);
+                                    membership.signUp();
+                                } else if (option == 2) {
+                                    Customer regular = new Regular(userID, password, custName, false);
+                                    regular.signUp();
+                                } else {
+                                    System.out.println("Invalid selection.");
+                                }
+                                System.out.println("");
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input! Please try again.");
+                                input.nextLine();
+                            }
+                        }
+
+                        else if (choice.equals("2")) {
+                            boolean loginSuccess = false;
+                            do {
+                                try {
+                                    System.out.print("Enter user ID (3 integer): ");
+                                    int userID = input.nextInt();
+                                    input.nextLine();
+
+                                    System.out.print("Enter password: ");
+                                    String password = input.nextLine();
+
+                                    boolean isMember = Customer.isMember(userID);
+                                    Customer user = isMember
+                                            ? new Membership(userID, password, "", true)
+                                            : new Regular(userID, password, "", false);
+
+                                    if (user.login()) {
+                                        System.out.println("Login successful!");
+                                        System.out.println("Welcome, " + user.getCustName() + "!");
+                                        loginSuccess = true;
+
+                                        System.out.println("\nWhat do you want to order? [1/Food or 2/Beverages]");
+                                        int pick = input.nextInt();
+                                        input.nextLine();
+                                        if (pick == 1) {
+                                            System.out.println(foodMenu.getFoodList());
+                                        } else if (pick == 2) {
+                                            System.out.println(beverageMenu.getBeveList());
+                                        } else {
+                                            System.out.println("Invalid option.");
+                                        }
+                                    } else {
+                                        System.out.println("Invalid user ID or password :(");
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid input. Please enter numbers only.");
+                                    input.nextLine();
+                                }
+                            } while (!loginSuccess);
+                        }
+
+                        else if (choice.equalsIgnoreCase("B")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid option. Enter again.");
+                        }
+                    } while (!choice.equalsIgnoreCase("B"));
+                }
+
+                else if (opt == 0) {
+                    System.out.println("Thank you for using our system!");
+                    System.exit(0);
+                } else {
+                    System.out.println("Invalid input, try again.");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter numbers only.");
+                input.nextLine(); // clear invalid input
+            }
+        } while (opt != 0);
+    }
+}
