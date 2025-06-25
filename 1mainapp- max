@@ -70,18 +70,7 @@ public class MainApp {
                                             System.out.println("view items sold");
                                             break;
                                         case "3":
-                                            System.out.print("Enter code: ");
-                                            String code = input.nextLine();
-                                            try {
-                                                System.out.print("Enter new price: RM");
-                                                double nPrice = input.nextDouble();
-                                                input.nextLine();
-                                                admin.updatePrice(code, nPrice);
-                                                System.out.println("Price Updated Successfully!");
-                                            } catch (InputMismatchException e) {
-                                                System.out.println("Invalid price input. Please enter a valid number.");
-                                                input.nextLine();
-                                            }
+                                            admin.updatePrice();
                                             break;
                                         case "4":
                                             admin.disTotalCustomer();
@@ -165,9 +154,14 @@ public class MainApp {
                                     String password = input.nextLine();
 
                                     boolean isMember = Customer.isMember(userID);
-                                    Customer user = isMember
-                                            ? new Membership(userID, password, "", true)
-                                            : new Regular(userID, password, "", false);
+                                    Customer user;
+                            
+                                    if(isMember){
+                                        user = new Membership(userID, password, "", true);
+                                    }
+                                    else{
+                                        user = new Regular(userID, password, "", false);
+                                    }
 
                                     if (user.login()) {
                                         System.out.println("Login successful!");
