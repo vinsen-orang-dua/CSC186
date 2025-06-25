@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class MainApp{
-    public static void main(){
+    public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         char key;
          Food foodMenu = new Food();  // Original menu
