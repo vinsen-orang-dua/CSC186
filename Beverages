@@ -1,4 +1,5 @@
-public class Beverages{
+public class Beverages {
+    //beverages price
     private double WJp = 7.00;
     private double HJp = 8.00;
     private double TChp = 4.50;
@@ -6,70 +7,69 @@ public class Beverages{
     private double LThp = 4.50;
     private double LTcp = 5.00;
 
-      public void setWJp(double WJp) {
-        this.WJp = WJp;
+    //items availability status
+    private boolean WJcheck = true;
+    private boolean HJcheck = false;
+    private boolean TChcheck = true;
+    private boolean TCccheck = false;
+    private boolean LThcheck = false;
+    private boolean LTccheck = true;
+
+    //price setters
+    public void setWJp(double WJp) { this.WJp = WJp; }
+    public void setHJp(double HJp) { this.HJp = HJp; }
+    public void setTChp(double TChp) { this.TChp = TChp; }
+    public void setTCcp(double TCcp) { this.TCcp = TCcp; }
+    public void setLThp(double LThp) { this.LThp = LThp; }
+    public void setLTcp(double LTcp) { this.LTcp = LTcp; }
+
+    //price getters
+    public double getWJp() { return WJp; }
+    public double getHJp() { return HJp; }
+    public double getTChp() { return TChp; }
+    public double getTCcp() { return TCcp; }
+    public double getLThp() { return LThp; }
+    public double getLTcp() { return LTcp; }
+
+    //status setters
+    public void setWJcheck(boolean WJcheck) { this.WJcheck = WJcheck; }
+    public void setHJcheck(boolean HJcheck) { this.HJcheck = HJcheck; }
+    public void setTChcheck(boolean TChcheck) { this.TChcheck = TChcheck; }
+    public void setTCccheck(boolean TCccheck) { this.TCccheck = TCccheck; }
+    public void setLThcheck(boolean LThcheck) { this.LThcheck = LThcheck; }
+    public void setLTccheck(boolean LTccheck) { this.LTccheck = LTccheck; }
+
+    //status getters
+    public boolean isWJcheck() { return WJcheck; }
+    public boolean isHJcheck() { return HJcheck; }
+    public boolean isTChcheck() { return TChcheck; }
+    public boolean isTCccheck() { return TCccheck; }
+    public boolean isLThcheck() { return LThcheck; }
+    public boolean isLTccheck() { return LTccheck; }
+
+    //elper for status display
+    private String status(boolean check) {
+        return check ? "Available" : "Out of Order";
     }
 
-    public void setHJp(double HJp) {
-        this.HJp = HJp;
-    }
-
-    public void setTChp(double TChp) {
-        this.TChp = TChp;
-    }
-
-    public void setTCcp(double TCcp) {
-        this.TCcp = TCcp;
-    }
-
-    public void setLThp(double LThp) {
-        this.LThp = LThp;
-    }
-
-    public void setLTcp(double LTcp) {
-        this.LTcp = LTcp;
-    }
-
-        public double getWJp() {
-        return WJp;
-    }
-
-    public double getHJp() {
-        return HJp;
-    }
-
-    public double getTChp() {
-        return TChp;
-    }
-
-    public double getTCcp() {
-        return TCcp;
-    }
-
-    public double getLThp() {
-        return LThp;
-    }
-
-    public double getLTcp() {
-        return LTcp;
-    } 
-    
+    //beverage menu
     public String getBeveList() {
         return "\n" +
-        "+----------------------------------------------------------+\n" +
-        "|  Code   |      Beverages       |         Price           |\n" +
-        "|---------|----------------------|-------------------------|\n" +
-        "|         |    [Minuman Bujang]  |                         |\n" +
-        "|---------|----------------------|-------------------------|\n" +
-        "|   WJ    |   Watermelon Juice   |        RM " + String.format("%-5.2f", WJp) + "         |\n" +
-        "|---------|----------------------|-------------------------|\n" +
-        "|   HJ    |    Honeydew Juice    |        RM " + String.format("%-5.2f", HJp) + "         |\n" +
-        "|---------|----------------------|-------------------------|\n" +
-        "|         |    [Minuman Lega]    |    Hot     |    Cold    |\n" +
-        "|---------|----------------------|------------|------------|\n" +
-        "|   TC    |        Teh C         |  RM " + String.format("%-5.2f", TChp) + "  |  RM " + String.format("%-5.2f", TCcp) + "  |\n" +
-        "|---------|----------------------|------------|------------|\n" +
-        "|   LT    |      Lemon Tea       |  RM " + String.format("%-5.2f", LThp) + "  |  RM " + String.format("%-5.2f", LTcp) + "  |\n" +
-        "+----------------------------------------------------------+";
-        }
+        "+--------------------------------------------------------------------------------+\n" +
+        "|  Code   |       Beverage Name        |   Type   |   Price   |     Status       |\n" +
+        "+---------+----------------------------+----------+-----------+------------------+\n" +
+        "|         |       [Minuman Bujang]     |          |           |                  |\n" +
+        "+---------+----------------------------+----------+-----------+------------------+\n" +
+        String.format("|   WJ    | Watermelon Juice           |     -    |  RM %-6.2f| %-16s |\n", WJp, status(WJcheck)) +
+        String.format("|   HJ    | Honeydew Juice             |     -    |  RM %-6.2f| %-16s |\n", HJp, status(HJcheck)) +
+        "+---------+----------------------------+----------+-----------+------------------+\n" +
+        "|         |       [Minuman Lega]       |          |           |                  |\n" +
+        "+---------+----------------------------+----------+-----------+------------------+\n" +
+        String.format("|  TCH    | Teh C                      |  Hot     |  RM %-6.2f| %-16s |\n", TChp, status(TChcheck)) +
+        String.format("|  TCC    | Teh C                      |  Cold    |  RM %-6.2f| %-16s |\n", TCcp, status(TCccheck)) +
+        String.format("|  LTH    | Lemon Tea                  |  Hot     |  RM %-6.2f| %-16s |\n", LThp, status(LThcheck)) +
+        String.format("|  LTC    | Lemon Tea                  |  Cold    |  RM %-6.2f| %-16s |\n", LTcp, status(LTccheck)) +
+        "+--------------------------------------------------------------------------------+";
+    }
+
 }
