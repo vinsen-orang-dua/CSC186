@@ -5,16 +5,22 @@ public class Order
     Food foodMenu = new Food(); 
     Beverages beverageMenu = new Beverages();
     Scanner input = new Scanner(System.in);
-    public void Order(){
+    
+    public void placeOrder(){
         System.out.println("\nWhat do you want to order? [1/Food or 2/Beverages]");
         int pick = input.nextInt();
         input.nextLine();
-        if (pick == 1) {
-            System.out.println(foodMenu.getFoodList());
-        } else if (pick == 2) {
-            System.out.println(beverageMenu.getBeveList());
-        } else {
-            System.out.println("Invalid option.");
+        switch (pick) {
+            case 1:
+                System.out.println(foodMenu.getFoodList());
+                break;
+            case 2:
+                System.out.println(beverageMenu.getBeveList());
+                break;
+            default:
+                System.out.println("Invalid option.");
+                break;
         }
+
     }
 }
