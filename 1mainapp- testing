@@ -115,6 +115,7 @@ public class MainApp {
                         System.out.println("");
 
                         if (choice.equals("1")) {
+
                             try {
                                 System.out.print("Enter user ID (3 integer): ");
                                 int userID = input.nextInt();
@@ -131,15 +132,20 @@ public class MainApp {
                                 int option = input.nextInt();
                                 input.nextLine();
 
-                                boolean member = false;
-                                if (option == 1) {
-                                    member = true;
-                                } else if (option != 2){
-                                    System.out.println("Invalid selection.");
+                                if(option == 1){
+                                    boolean member = true;
+
+                                    Customer membership = new Membership(userID, password, custName, member);
+                                    membership.signUp();
+                                    System.out.println("");
                                 }
-                                Customer newUser = new Membership(userID, password, custName, member);
-                                newUser.signUp();
-                                System.out.println("");
+                                if(option == 2){
+                                    boolean member = false;
+
+                                    Customer membership = new Membership(userID, password, custName, member);
+                                    membership.signUp();
+                                    System.out.println("");
+                                }
                             } catch (InputMismatchException e) {
                                 System.out.println("Invalid input! Please try again.");
                                 input.nextLine();
@@ -159,7 +165,7 @@ public class MainApp {
 
                                     boolean isMember = Customer.isMember(userID);
                                     Customer user;
-                            
+
                                     if(isMember){
                                         user = new Membership(userID, password, "", true);
                                     }
