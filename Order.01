@@ -1,0 +1,42 @@
+public class Order{
+    private String foodCode;
+    private String beverageCode;
+    private int quantity;
+    private double price;
+    //construct
+    public Order(String foodCode, String beverageCode, int quantity, double price){
+       this.foodCode = foodCode;
+       this.beverageCode = beverageCode;
+       this.quantity = quantity;
+       this.price = price;
+    }
+    //Setter
+    public void setFoodCode(){
+        this.foodCode = foodCode;
+    }
+    public void setBeverageCode(){
+        this.beverageCode = beverageCode;
+    }
+    public void setQuantity(){
+        this.quantity = quantity;
+    }
+    //le Getter
+    public String getFoodCode(String foodCode){
+        return foodCode;
+    }
+    public String getBeverageCode(String beverageCode){
+        return beverageCode;
+    }
+    public int getQuantity(int quantity){
+        return quantity;
+    }
+    public double getPrice(double price){
+        return price;
+    }
+    
+    //placeOrder()
+    public void placeOrder(){
+        System.out.println(" Order place for food:"+foodCode + "\n Beverage: "+ beverageCode + "\n quantity: " + quantity + "The Total Price:RM "+ (price*quantity));
+    }
+   
+}
