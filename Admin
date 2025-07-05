@@ -1,5 +1,3 @@
-import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.io.*;
 import java.util.*;
 
@@ -32,14 +30,15 @@ public class Admin extends User{
         }
     }
 
-    //public disSales(){} tambah lepas order method ada
-    //public disItemSold(){} tambah lepas order method ada
+    public void disSales(){
+        System.out.println("Jamalllllllllls Display Sales");
+    } 
+    public void disItemSold(){
+         System.out.println("Jamalllllllllls Display Items Sold");
+    } 
 
-    public void updatePrice() {
+    public void updateMenu() {
         String choice;
-        System.out.println(foodMenu.getFoodList());
-        System.out.println(beverageMenu.getBeveList());
-
         do {
             System.out.println(foodMenu.getFoodList());
             System.out.println(beverageMenu.getBeveList());
@@ -65,19 +64,10 @@ public class Admin extends User{
 
                     switch (code.toUpperCase()) {
                         case "A": foodMenu.setAp(nPrice); break;
-                        case "AT": foodMenu.setATp(nPrice); break;
-                        case "ATC": foodMenu.setATCp(nPrice); break;
                         case "D": foodMenu.setDp(nPrice); break;
-                        case "DT": foodMenu.setDTp(nPrice); break;
-                        case "DTC": foodMenu.setDTCp(nPrice); break;
-                        case "B": foodMenu.setBp(nPrice); break;
                         case "C": foodMenu.setCp(nPrice); break;
                         case "WJ": beverageMenu.setWJp(nPrice); break;
                         case "HJ": beverageMenu.setHJp(nPrice); break;
-                        case "LTH": beverageMenu.setLThp(nPrice); break;
-                        case "LTC": beverageMenu.setLTcp(nPrice); break;
-                        case "TCH": beverageMenu.setTChp(nPrice); break;
-                        case "TCC": beverageMenu.setTCcp(nPrice); break;
                         default:
                             System.out.println("Invalid code. Please enter a valid menu item code.");
                             continue;
@@ -99,34 +89,16 @@ public class Admin extends User{
                         // Food
                     case "A":
                         foodMenu.setApCheck(!foodMenu.isApCheck()); break;
-                    case "AT":
-                        foodMenu.setATpCheck(!foodMenu.isATpCheck()); break;
-                    case "ATC":
-                        foodMenu.setATCpCheck(!foodMenu.isATCpCheck()); break;
                     case "D":
                         foodMenu.setDpCheck(!foodMenu.isDpCheck()); break;
-                    case "DT":
-                        foodMenu.setDTpCheck(!foodMenu.isDTpCheck()); break;
-                    case "DTC":
-                        foodMenu.setDTCpCheck(!foodMenu.isDTCpCheck()); break;
                     case "C":
                         foodMenu.setCpCheck(!foodMenu.isCpCheck()); break;
-                    case "B":
-                        foodMenu.setBpCheck(!foodMenu.isBpCheck()); break;
 
                         // Beverages
                     case "WJ":
-                        beverageMenu.setWJcheck(!beverageMenu.isWJcheck()); break;
+                        beverageMenu.setWJpcheck(!beverageMenu.isWJpcheck()); break;
                     case "HJ":
-                        beverageMenu.setHJcheck(!beverageMenu.isHJcheck()); break;
-                    case "TCH":
-                        beverageMenu.setTChcheck(!beverageMenu.isTChcheck()); break;
-                    case "TCC":
-                        beverageMenu.setTCccheck(!beverageMenu.isTCccheck()); break;
-                    case "LTH":
-                        beverageMenu.setLThcheck(!beverageMenu.isLThcheck()); break;
-                    case "LTC":
-                        beverageMenu.setLTccheck(!beverageMenu.isLTccheck()); break;
+                        beverageMenu.setHJpcheck(!beverageMenu.isHJpcheck()); break;
 
                     default:
                         System.out.println("Invalid code. Please enter a valid menu item code.");
