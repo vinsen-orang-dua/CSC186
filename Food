@@ -38,12 +38,12 @@ public class Food {
     // menu display
     public String getFoodList() {
         return "\n" +
-        "+--------------------------------------------------------------------+\n" +
+        "+====================================================================+\n" +
         "|  Code   |         Food Name          |   Price   |     Status      |\n" +
         "+---------+----------------------------+-----------+-----------------+\n" +
         String.format("|   A     | Burger Ayam                |  RM %-6.2f| %-15s |\n", Ap, status(ApCheck)) +
         String.format("|   D     | Burger Daging              |  RM %-6.2f| %-15s |\n", Dp, status(DpCheck)) +
         String.format("|   C     | Spaghetti Carbonara        |  RM %-6.2f| %-15s |\n", Cp, status(CpCheck)) +
-        "+--------------------------------------------------------------------+";
+        "+====================================================================+";
     }
 }
