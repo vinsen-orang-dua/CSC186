@@ -131,22 +131,14 @@ public class MainApp {
                                 int option = input.nextInt();
                                 input.nextLine();
 
-                                if(option == 1){
-                                boolean member = true;
-                            
-                                Customer membership = new Membership(userID, password, custName, member);
-                                membership.signUp();
-                                System.out.println("");
-                                }
-                                else if(option == 2){
-                                boolean member = false;
-                            
-                                Customer membership = new Membership(userID, password, custName, member);
-                                membership.signUp();
-                                System.out.println("");
-                                } else {
+                                boolean isMember = false;
+                                if (option == 1) {
+                                    isMember = true;
+                                } else if (option != 2){
                                     System.out.println("Invalid selection.");
                                 }
+                                Customer newUser = new Membership(userID, password, custName, isMember);
+                                newUser.signUp();
                                 System.out.println("");
                             } catch (InputMismatchException e) {
                                 System.out.println("Invalid input! Please try again.");
