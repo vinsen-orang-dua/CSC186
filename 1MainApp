@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class MainApp{
-    public static void main(String[] args){
+    public static void main(String [] args){
         Scanner input = new Scanner(System.in);
         char key;
          Food foodMenu = new Food();  // Original menu
@@ -49,10 +49,8 @@ public class MainApp{
                             System.out.println("|------------------------------|");
                             System.out.println("|    2   |   View Items Sold   |");
                             System.out.println("|------------------------------|");
-                            System.out.println("|    3   |   Update Menu       |");
+                            System.out.println("|    3   |   Update Price      |");
                             System.out.println("|------------------------------|");
-                            System.out.println("|    4   |   Display Customer  |");
-                            System.out.println("+------------------------------+");
                             System.out.println("|    M   |   Main Menu         |");
                             System.out.println("+------------------------------+");
                             System.out.print("Enter option: ");
@@ -82,9 +80,6 @@ public class MainApp{
                              
                                 
                                 admin.updatePrice(code, nPrice);
-                            }
-                            else if (choice.equals("4")){
-                                admin.disTotalCustomer();
                             }
                             else {
                                 System.out.println("Invalid option.Please try again.");
@@ -140,8 +135,8 @@ public class MainApp{
                         if(option == 2){
                             boolean member = false;
                             
-                            Customer regular = new Regular(userID, password, custName, member);
-                            regular.signUp();
+                            Customer membership = new Membership(userID, password, custName, member);
+                            membership.signUp();
                             System.out.println("");
                         }
         
@@ -163,7 +158,7 @@ public class MainApp{
                                 user = new Membership(userID, password, "", true);
                             }
                             else{
-                                user = new Regular(userID, password, "", false);
+                                user = new Membership(userID, password, "", false);
                             }
                         
                             if (user.login()){
