@@ -9,10 +9,12 @@ public class MainApp {
         Order order = new Order();
         final int MAX_attempts = 3;
 
-        System.out.println("+--------------------------------+");
-        System.out.println("|   WELCOME TO CAFE KAPAL LAUD   |");
-        System.out.println("+--------------------------------+");
-        System.out.print("Press any key [Q] to continue: ");
+        System.out.println("  ============================================");
+        System.out.println("  |  ☠️️  WELCOME TO CAFE KAPAL LAUD  ☕     |");
+        System.out.println("  ============================================");
+        System.out.println("  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
+        System.out.print("💀 Press any key [Q] to continue: ");
+
         key = input.next().charAt(0);
         input.nextLine();
         System.out.println("");
@@ -20,14 +22,15 @@ public class MainApp {
         int opt = -1;
         do {
             try {
-                System.out.println("+----------------+");
-                System.out.println("|  1 | Admin     |");
-                System.out.println("+----------------+");
-                System.out.println("|  2 | Customer  |");
-                System.out.println("+----------------+");
-                System.out.println("|  0 | Exit      |");
-                System.out.println("+----------------+");
+                System.out.println("+====================+");
+                System.out.println("|     MAIN MENU      |");
+                System.out.println("+====================+");
+                System.out.println("| 1. Admin           |");
+                System.out.println("| 2. Customer        |");
+                System.out.println("| 0. Exit            |");
+                System.out.println("+====================+");
                 System.out.print("Choose option [1/2/0]: ");
+
                 opt = input.nextInt();
                 input.nextLine();
                 System.out.println("");
@@ -49,18 +52,19 @@ public class MainApp {
                                 System.out.println("\nWelcome Admin, " + admin.getAdminName() + " :)");
                                 String choice;
                                 do {
-                                    System.out.println("+------------------------------+");
-                                    System.out.println("|    1   |   View  Sales       |");
+                                    System.out.println("+==============================+");
+                                    System.out.println("|   [1] View Sales             |");
                                     System.out.println("|------------------------------|");
-                                    System.out.println("|    2   |   View Items Sold   |");
+                                    System.out.println("|   [2] View Items Sold        |");
                                     System.out.println("|------------------------------|");
-                                    System.out.println("|    3   |   Update Menu       |");
+                                    System.out.println("|   [3] Update Menu            |");
                                     System.out.println("|------------------------------|");
-                                    System.out.println("|    4   |   Display Customer  |");
-                                    System.out.println("+------------------------------+");
-                                    System.out.println("|    M   |   Main Menu         |");
-                                    System.out.println("+------------------------------+");
-                                    System.out.print("Enter option: ");
+                                    System.out.println("|   [4] Display Customer       |");
+                                    System.out.println("|------------------------------|");
+                                    System.out.println("|   [M] Main Menu              |");
+                                    System.out.println("+==============================+");
+                                    System.out.print("Choose option [1/2/3/4/M]: ");
+
                                     choice = input.nextLine();
                                     System.out.println("");
 
@@ -105,14 +109,15 @@ public class MainApp {
                     // Customer Section
                     String choice;
                     do {
-                        System.out.println("+-------------+");
-                        System.out.println("| 1 | Sign Up |");
-                        System.out.println("+-------------+");
-                        System.out.println("| 2 | Login   |");
-                        System.out.println("+-------------+");
-                        System.out.println("| B | Back    |");
-                        System.out.println("+-------------+");
+                        System.out.println("+=================+");
+                        System.out.println("|   [1] Sign Up   |");
+                        System.out.println("|-----------------|");
+                        System.out.println("|   [2] Login     |");
+                        System.out.println("|-----------------|");
+                        System.out.println("|   [B] Back      |");
+                        System.out.println("+=================+");
                         System.out.print("Choose option [1/2/B]: ");
+
                         choice = input.nextLine();
                         System.out.println("");
 
@@ -178,9 +183,9 @@ public class MainApp {
                                     if (user.login()) {
                                         System.out.println("Login successful!");
                                         System.out.println("Welcome, " + user.getCustName() + "!");
-                                        order.Order();
+                                        order.placeOrder();
                                         break;
-                                        
+
                                     } else {
                                         loginAttempts++;
                                         System.out.println("Invalid user ID or password :(");
@@ -206,7 +211,10 @@ public class MainApp {
                 }
 
                 else if (opt == 0) {
-                    System.out.println("Thank you for using our system!");
+                    System.out.println("+=========================================+");
+                    System.out.println("|   Thank you for using our system! 😊    |");
+                    System.out.println("+=========================================+");
+
                     System.exit(0);
                 } else {
                     System.out.println("Invalid input, try again.");
