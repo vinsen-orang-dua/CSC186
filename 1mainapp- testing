@@ -40,7 +40,7 @@ public class MainApp {
                             System.out.print("Enter Admin Password: ");
                             String password = input.nextLine();
 
-                            Admin admin = new Admin(userID, password, "Owner", foodMenu, beverageMenu);
+                            Admin admin = new Admin(userID, password, "Jamal", foodMenu, beverageMenu);
 
                             if (admin.adminLogin()) {
                                 System.out.println("\nWelcome Admin, " + admin.getAdminName() + " :)");
