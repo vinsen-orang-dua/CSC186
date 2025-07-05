@@ -131,12 +131,19 @@ public class MainApp {
                                 int option = input.nextInt();
                                 input.nextLine();
 
-                                if (option == 1) {
-                                    Customer membership = new Membership(userID, password, custName, true);
-                                    membership.signUp();
-                                } else if (option == 2) {
-                                    Customer regular = new Regular(userID, password, custName, false);
-                                    regular.signUp();
+                                if(option == 1){
+                                boolean member = true;
+                            
+                                Customer membership = new Membership(userID, password, custName, member);
+                                membership.signUp();
+                                System.out.println("");
+                                }
+                                else if(option == 2){
+                                boolean member = false;
+                            
+                                Customer membership = new Membership(userID, password, custName, member);
+                                membership.signUp();
+                                System.out.println("");
                                 } else {
                                     System.out.println("Invalid selection.");
                                 }
@@ -165,7 +172,7 @@ public class MainApp {
                                         user = new Membership(userID, password, "", true);
                                     }
                                     else{
-                                        user = new Regular(userID, password, "", false);
+                                        user = new Membership(userID, password, "", false);
                                     }
 
                                     if (user.login()) {
