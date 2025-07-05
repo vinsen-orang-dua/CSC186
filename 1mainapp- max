@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Scanner;
 
 public class MainApp {
     public static void main(String[] args) {
@@ -70,7 +69,7 @@ public class MainApp {
                                             System.out.println("view items sold");
                                             break;
                                         case "3":
-                                            admin.updatePrice();
+                                            admin.updateMenu();
                                             break;
                                         case "4":
                                             admin.disTotalCustomer();
