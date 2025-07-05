@@ -1,7 +1,8 @@
+/* not use
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Regular extends Customer{
+public class Regular{
    private  boolean member;
    private final String FILE_NAME = "Customer.txt";
    
@@ -72,3 +73,4 @@ public class Regular extends Customer{
         return false;
     }
 }
+*/
