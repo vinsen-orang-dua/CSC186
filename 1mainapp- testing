@@ -6,6 +6,8 @@ public class MainApp {
         char key;
         Food foodMenu = new Food(); 
         Beverages beverageMenu = new Beverages();
+        int loginAttempts = 0;
+        final int MAX_attempts = 3;
 
         System.out.println("+--------------------------------+");
         System.out.println("|   WELCOME TO CAFE KAPAL LAUD   |");
@@ -63,10 +65,10 @@ public class MainApp {
 
                                     switch (choice) {
                                         case "1":
-                                            System.out.println("view sales");
+                                            admin.disSales();
                                             break;
                                         case "2":
-                                            System.out.println("view items sold");
+                                            admin.disItemSold();
                                             break;
                                         case "3":
                                             admin.updateMenu();
@@ -84,11 +86,15 @@ public class MainApp {
                                 } while (!choice.equalsIgnoreCase("M"));
                                 break;
                             } else {
-                                System.out.println("Invalid Admin ID or Password :(");
+                                loginAttempts++;
+                                System.out.println("Error! Invalid Admin ID or password");                                
                             }
                         } catch (InputMismatchException e) {
                             System.out.println("Invalid input! Please enter correct data.");
                             input.nextLine();
+                        } if (loginAttempts >= MAX_attempts){
+                            System.out.println("Maximum attempts has been reached!!! Access has been denied");
+                            break;
                         }
                     } while (true);
                 }
