@@ -33,8 +33,9 @@ public class Admin extends User{
     public void disSales(){
         System.out.println("Jamalllllllllls Display Sales");
     } 
+
     public void disItemSold(){
-         System.out.println("Jamalllllllllls Display Items Sold");
+        System.out.println("Jamalllllllllls Display Items Sold");
     } 
 
     public void updateMenu() {
@@ -43,14 +44,14 @@ public class Admin extends User{
             System.out.println(foodMenu.getFoodList());
             System.out.println(beverageMenu.getBeveList());
             System.out.println("What would you like to do?");
-            System.out.println("+------------------------------+");
-            System.out.println("|  1  |   Update Items Price   |");
-            System.out.println("+------------------------------+");
-            System.out.println("|  2  |   Change Item Status   |");
-            System.out.println("+------------------------------+");
-            System.out.println("|  B  |   Back                 |");
-            System.out.println("+------------------------------+");
-            System.out.print("Enter option: ");
+            System.out.println("+===============================+");
+            System.out.println("|   [1] Update Items Price      |");
+            System.out.println("|-------------------------------|");
+            System.out.println("|   [2] Change Item Status      |");
+            System.out.println("|-------------------------------|");
+            System.out.println("|   [B] Back                    |");
+            System.out.println("+===============================+");
+            System.out.print("Choose option [1/2/B]: ");
             choice = input.nextLine();
 
             if (choice.equals("1")) {
@@ -81,7 +82,6 @@ public class Admin extends User{
                 }
 
             } else if (choice.equals("2")) {
-                System.out.println("ini update status");
                 System.out.print("Enter item code to toggle status: ");
                 String code = input.nextLine().toUpperCase();
 
@@ -118,23 +118,30 @@ public class Admin extends User{
         try {
             BufferedReader br = new BufferedReader(new FileReader("Customer.txt"));
             String line;
+            
+            boolean hasData = false;
 
-            System.out.println("+------------+----------------------+-------------+");
+            System.out.println("+=================================================+");
             System.out.println("|  User ID   |     Customer Name    |   Type      |");
             System.out.println("+------------+----------------------+-------------+");
 
             while ((line = br.readLine()) != null) {
+                hasData = true;
                 StringTokenizer st = new StringTokenizer(line, ",");
                 int userID = Integer.parseInt(st.nextToken());
-                st.nextToken(); // skip password
+                st.nextToken();
                 String name = st.nextToken();
                 boolean isMember = Boolean.parseBoolean(st.nextToken());
 
                 String type = isMember ? "Member" : "Regular";
                 System.out.printf("| %-10d | %-20s | %-11s |\n", userID, name, type);
             }
+            
+            if (!hasData){
+                System.out.println("|           No customer found in the system.      |");
+            }
 
-            System.out.println("+------------+----------------------+-------------+");
+            System.out.println("+=================================================+");
             br.close();
         } catch (IOException e) {
             System.out.println("Error reading from file: " + e.getMessage());
