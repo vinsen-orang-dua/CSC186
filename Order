@@ -1,26 +1,103 @@
-import java.util.*;
-public class Order
+import java.util.Scanner;
 
-{
-    Food foodMenu = new Food(); 
-    Beverages beverageMenu = new Beverages();
-    Scanner input = new Scanner(System.in);
-    
-    public void placeOrder(){
-        System.out.println("\nWhat do you want to order? [1/Food or 2/Beverages]");
+public class Order {
+    private Food foodMenu;
+    private Beverages beverageMenu;
+    private String[] name;    // Stores ordered item names
+    private double[] qty;     // Stores quantities
+    private double[] prices;  // Stores individual item prices
+    private int x = 0;       // Tracks current index
+    private Scanner input = new Scanner(System.in);
+
+    // Constructor
+    public Order(Food foodMenu, Beverages beverageMenu) {
+        this.foodMenu = foodMenu;
+        this.beverageMenu = beverageMenu;
+        this.name = new String[100];  // Initialize arrays (adjust size as needed)
+        this.qty = new double[100];
+        this.prices = new double[100];
+    }
+
+    public void placeOrder() {
+        boolean continueOrdering = true;
+        while(continueOrdering){
+        System.out.println("\nWhat do you want to order? [1/Food or 2/Beverages]\nEnter 3 to stop ordering.");
         int pick = input.nextInt();
-        input.nextLine();
+        input.nextLine(); // Consume newline
+
         switch (pick) {
-            case 1:
+            case 1: // Food
                 System.out.println(foodMenu.getFoodList());
+                System.out.println("Enter food code (A/D/C):");
+                String foodCode = input.nextLine().toUpperCase();
+
+                switch (foodCode) {
+                    case "A":
+                        addItem("Burger Ayam", foodMenu.getAp());
+                        break;
+                    case "D":
+                        addItem("Burger Daging", foodMenu.getDp());
+                        break;
+                    case "C":
+                        addItem("Spaghetti Carbonara", foodMenu.getCp());
+                        break;
+                    default:
+                        System.out.println("Invalid food code.");
+                        continue;
+                }
                 break;
-            case 2:
+            
+
+            case 2: // Beverages
                 System.out.println(beverageMenu.getBeveList());
+                System.out.println("Enter beverage code (WJ/HJ):");
+                String beverageCode = input.nextLine().toUpperCase();
+
+                switch (beverageCode) {
+                    case "WJ":
+                        addItem("Watermelon Juice", beverageMenu.getWJp());
+                        break;
+                    case "HJ":
+                        addItem("Honeydew Juice", beverageMenu.getHJp());
+                        break;
+                    default:
+                        System.out.println("Invalid beverage code.");
+                        continue;
+                }
                 break;
+                
+            case 3: 
+            continueOrdering = false;
+            break;
+
             default:
                 System.out.println("Invalid option.");
-                break;
+                continue;
         }
 
+    }
+}
+
+    // Helper method to add an item to the order
+    private void addItem(String itemName, double itemPrice) {
+        System.out.println("Enter quantity:");
+        double quantity = input.nextDouble();
+        input.nextLine(); // Consume newline
+
+        name[x] = itemName;
+        qty[x] = quantity;
+        prices[x] = itemPrice * quantity; // Calculate total price for this item
+        x++; // Increment index
+    }
+
+    // Optional: Print order summary
+    public void printOrderSummary() {
+        System.out.println("\n--- Your Order ---");
+        for (int i = 0; i < x; i++) {
+            System.out.printf(
+                "%s x%.0f - $%.2f\n",
+                name[i], qty[i], prices[i]
+            );
+        }
     }
 }
