@@ -6,7 +6,12 @@ public class MainApp {
         char key;
         Food foodMenu = new Food(); 
         Beverages beverageMenu = new Beverages();
-        Order order = new Order();
+        Order order = new Order(foodMenu, beverageMenu);
+        
+        double tprice = 0.0;
+        int[] totalCust = new int[1]; // index 0 = customer count
+        Payment payment = new Payment(tprice, totalCust);
+        
         final int MAX_attempts = 3;
 
         System.out.println("  ============================================");
@@ -70,10 +75,10 @@ public class MainApp {
 
                                     switch (choice) {
                                         case "1":
-                                            admin.disSales();
+                                            admin.disSales(payment);
                                             break;
                                         case "2":
-                                            admin.disItemSold();
+                                            admin.disItemSold(order);
                                             break;
                                         case "3":
                                             admin.updateMenu();
@@ -93,7 +98,7 @@ public class MainApp {
                             } else {
                                 loginAttempts++;
                                 System.out.println("Error! Invalid Admin ID or password");
-                                System.out.println("Remaining attempts: " + loginAttempts + ("/3"));
+                                System.out.println("Remaining attempts: " + (3 - loginAttempts));
                             }
                         } catch (InputMismatchException e) {
                             System.out.println("Invalid input! Please enter correct data.");
@@ -183,7 +188,37 @@ public class MainApp {
                                     if (user.login()) {
                                         System.out.println("Login successful!");
                                         System.out.println("Welcome, " + user.getCustName() + "!");
+                                        order.clearOrder();
                                         order.placeOrder();
+                                        
+                                        double totalOrderPrice = order.getTotalPrice();
+                                        payment.setTotalPrice(totalOrderPrice);
+
+                                        // Show order summary
+                                        order.printOrderSummary();
+
+                                        // Choose payment method
+                                        System.out.println("\nHow would you like to pay?");
+                                        System.out.println("[1] Cash");
+                                        System.out.println("[2] Card (10% discount)");
+                                        System.out.print("Choose option: ");
+                                        int payOpt = input.nextInt();
+                                        input.nextLine();
+
+                                        String result;
+                                        if (payOpt == 1) {
+                                            System.out.print("Enter amount: RM");
+                                            double amt = input.nextDouble();
+                                            input.nextLine();
+                                            result = payment.payByCash(amt);
+                                        } else if (payOpt == 2) {
+                                            result = payment.payByCard();
+                                        } else {
+                                            result = "Invalid payment option selected.";
+                                        }
+
+                                        System.out.println(result);
+
                                         break;
 
                                     } else {
