@@ -1,42 +1,140 @@
-public class Order{
-    private String foodCode;
-    private String beverageCode;
-    private int quantity;
-    private double price;
-    //construct
-    public Order(String foodCode, String beverageCode, int quantity, double price){
-       this.foodCode = foodCode;
-       this.beverageCode = beverageCode;
-       this.quantity = quantity;
-       this.price = price;
+import java.util.Scanner;
+
+public class Order {
+    private Food foodMenu;
+    private Beverages beverageMenu;
+    private String[] name;
+    private double[] qty;
+    private double[] prices;
+    private int x = 0;
+    private Scanner input = new Scanner(System.in);
+
+    private static final double Treshold= 20.0; //If Total Order is > than treshold, customer will recieve discount
+    private static final double discount_recieve = 0.20; // 20% discount given to customer
+
+    public Order(Food foodMenu, Beverages beverageMenu) {
+        this.foodMenu = foodMenu;
+        this.beverageMenu = beverageMenu;
+        this.name = new String[100];
+        this.qty = new double[100];
+        this.prices = new double[100];
     }
-    //Setter
-    public void setFoodCode(){
-        this.foodCode = foodCode;
+
+    public void placeOrder() {
+        boolean continueOrdering = true;
+
+        while (continueOrdering) {
+            System.out.println("\n================= FULL MENU =================");
+            System.out.println(foodMenu.getFoodList());
+            System.out.println(beverageMenu.getBeveList());
+            System.out.println("Enter item code (A/D/C/WJ/HJ) or 0 to finish ordering:");
+            System.out.print("Your choice: ");
+            String code = input.nextLine().toUpperCase();
+
+            switch (code) {
+                case "A":
+                    if (foodMenu.isApCheck()) {
+                        addItem("Burger Ayam", foodMenu.getAp());
+                    } else {
+                        System.out.println("❌ Sorry, Burger Ayam is currently out of order.");
+                    }
+                    break;
+
+                case "D":
+                    if (foodMenu.isDpCheck()) {
+                        addItem("Burger Daging", foodMenu.getDp());
+                    } else {
+                        System.out.println("❌ Sorry, Burger Daging is currently out of order.");
+                    }
+                    break;
+
+                case "C":
+                    if (foodMenu.isCpCheck()) {
+                        addItem("Spaghetti Carbonara", foodMenu.getCp());
+                    } else {
+                        System.out.println("❌ Sorry, Spaghetti Carbonara is currently out of order.");
+                    }
+                    break;
+
+                case "WJ":
+                    if (beverageMenu.isWJpcheck()) {
+                        addItem("Watermelon Juice", beverageMenu.getWJp());
+                    } else {
+                        System.out.println("❌ Sorry, Watermelon Juice is currently out of order.");
+                    }
+                    break;
+
+                case "HJ":
+                    if (beverageMenu.isHJpcheck()) {
+                        addItem("Honeydew Juice", beverageMenu.getHJp());
+                    } else {
+                        System.out.println("❌ Sorry, Honeydew Juice is currently out of order.");
+                    }
+                    break;
+
+                case "0":
+                    continueOrdering = false;
+                    break;
+
+                default:
+                    System.out.println("⚠️ Invalid code. Please try again.");
+            }
+        }
     }
-    public void setBeverageCode(){
-        this.beverageCode = beverageCode;
+
+    private void addItem(String itemName, double itemPrice) {
+        System.out.print("Enter quantity: ");
+        double quantity = input.nextDouble();
+        input.nextLine();
+
+        name[x] = itemName;
+        qty[x] = quantity;
+        prices[x] = itemPrice * quantity;
+        x++;
+
+        System.out.println("✅ " + itemName + " x" + (int) quantity + " added to your order.");
     }
-    public void setQuantity(){
-        this.quantity = quantity;
+
+    public void clearOrder() {
+        x = 0;
+        for (int i = 0; i < name.length; i++) {
+            name[i] = null;
+            qty[i] = 0;
+            prices[i] = 0;
+        }
     }
-    //le Getter
-    public String getFoodCode(String foodCode){
-        return foodCode;
+
+    public void printOrderSummary() {
+        System.out.println("\n========= ORDER SUMMARY =========");
+        double total = 0;
+        for (int i = 0; i < x; i++) {
+            System.out.printf("%-25s x%.0f - RM%.2f\n", name[i], qty[i], prices[i]);
+            total += prices[i];
+        }
+
+        if (total > Treshold) {
+            double discount = total * discount_recieve;
+            System.out.printf("DISCOUNT (10%%):          -RM%.2f\n", discount);
+            total -= discount;
+        }
+
+        System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
     }
-    public String getBeverageCode(String beverageCode){
-        return beverageCode;
+
+    public String[] getNameArray() { return name; }
+    public double[] getQtyArray() { return qty; }
+    public int getOrderCount() { return x; }
+
+    public double getTotalPrice() {
+        double total = 0;
+        for (int i = 0; i < x; i++) {
+            total += prices[i];
+        }
+        if (total > Treshold) {
+            double discount = total * discount_recieve;
+            total -= discount;
+        }
+        return total;
     }
-    public int getQuantity(int quantity){
-        return quantity;
-    }
-    public double getPrice(double price){
-        return price;
-    }
-    
-    //placeOrder()
-    public void placeOrder(){
-        System.out.println(" Order place for food:"+foodCode + "\n Beverage: "+ beverageCode + "\n quantity: " + quantity + "The Total Price:RM "+ (price*quantity));
-    }
-   
 }
+
