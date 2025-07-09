@@ -1,37 +1,81 @@
+import java.util.*;
 public class Payment {
     protected double total;
     private double highestSale;
     private double lowestSale;
     private double totalSales;
-    private double amt;
+    protected double amt;
     private double change = 0.0;
     private char opt;
-    private double tprice; // Added missing field
-    private int totalCust; // Added missing field
+    private Food foodMenu;
+    private Beverages beverageMenu;
 
-    public void setTotalPrice(double price) {this.tprice = price;}
+    protected double tprice;
+    int cardNum = 0;
+
+    private Scanner input = new Scanner(System.in);
+
+    //public void setTotalPrice(double price) {this.tprice = price;}
+
     public double getTotal() { return total; }
-    public double getHighestSale() { return highestSale; }
-    public double getLowestSale() { return lowestSale; }
     public double getTotalSales() { return totalSales; }
+    public Payment(Order order){}
 
-    public Payment(double tprice, int totalCust, double total) {
+    public Payment(double tprice,  double total) {
         this.total = total;
         this.tprice = tprice;
-        this.totalCust = totalCust;
+
     }
 
-    private void updateSales() {
-        totalCust++;
+    public void payMethod(){
+        System.out.println("\nHow would you like to pay?");
+        System.out.println("[1] Cash");
+        System.out.println("[2] Card (10% discount)");
+        System.out.print("Choose option: ");
+        int payOpt = input.nextInt();
+
+        String result;
+
+        switch (payOpt) {
+            case 1 :
+                System.out.print("Enter amount: RM");
+                amt = input.nextDouble();
+                input.nextLine();
+                Cash cash = new Cash(tprice, total, amt);
+                cash = new Cash(tprice, total, amt);
+                result = cash.payByCash();
+
+                break;
+
+            case 2: 
+                Card card = new Card(tprice, total, cardNum);
+                result = card.payByCard();
+                break;
+
+            default: 
+                result = "Invalid payment option selected.";
+                break;
+        }
+
+        System.out.println(result);
+
     }
-    private void HighestSale(){
+
+    public double getTprice(){
+        return tprice;
+    }
+
+    public double getHighestSale(){
         if (this.total > this.highestSale) {
             this.highestSale = this.total;
         }
+        return highestSale;
     }
-    private void getLowestSales(){
-        if (this.total < this.lowestSale || totalCust == 1) {
+
+    public double getLowestSale(){
+        if (this.total < this.lowestSale ) {
             this.lowestSale = this.total;
         }
+        return lowestSale;
     }
 }
