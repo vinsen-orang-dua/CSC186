@@ -1,0 +1,11 @@
+public class LoginSession {
+    private static int currentUserID = -1;
+
+    public static void setCurrentUserID(int id) {
+        currentUserID = id;
+    }
+
+    public static int getCurrentUserID() {
+        return currentUserID;
+    }
+}
