@@ -40,18 +40,11 @@ public class Admin extends User{
 
     public void disItemSold(Order order) {
         System.out.println("\n+=========== ITEMS SOLD ============+");
-        String[] items = order.getNameArray();
-        double[] qty = order.getQtyArray();
-        int count = order.getOrderCount();
-
-        if (count == 0) {
-            System.out.println("| No items were ordered yet.        |");
-        } else {
-            for (int i = 0; i < count; i++) {
-                System.out.printf("| %-25s x%-3.0f    |\n", items[i], qty[i]);
-                i++;
-            }
-        }
+        System.out.println("\n+=========== Burgur Ayam "+order.getPurcasedA()+"============+");
+        System.out.println("\n+=========== Burgur Daging"+order.getPurcasedD()+" ============+");
+        System.out.println("\n+=========== Spegeti Carbonara "+order.getPurcasedC()+"============+");
+        System.out.println("\n+=========== Watwermelon Juice "+order.getPurcasedWJ()+"============+");
+        System.out.println("\n+=========== Honey Mommy"+order.getPurcasedHJ()+"============+");
         System.out.println("+===================================+");
     }
 
