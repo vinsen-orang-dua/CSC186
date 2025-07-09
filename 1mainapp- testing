@@ -8,9 +8,10 @@ public class MainApp {
         Beverages beverageMenu = new Beverages();
         Order order = new Order(foodMenu, beverageMenu);
         
+        double total =0.0;
         double tprice = 0.0;
         int[] totalCust = new int[1]; // index 0 = customer count
-        Payment payment = new Payment(tprice, totalCust);
+        Payment payment = new Payment(tprice,totalCust,total);
         
         final int MAX_attempts = 3;
 
@@ -111,7 +112,7 @@ public class MainApp {
                 }
 
                 else if (opt == 2) {
-                    // Customer Section
+                    // Customer Section 😊 
                     String choice;
                     do {
                         System.out.println("+=================+");
@@ -247,7 +248,7 @@ public class MainApp {
 
                 else if (opt == 0) {
                     System.out.println("+=========================================+");
-                    System.out.println("|   Thank you for using our system! 😊    |");
+                    System.out.println("|   😊 Thank you for using our system! 😊 ?   |");
                     System.out.println("+=========================================+");
 
                     System.exit(0);
