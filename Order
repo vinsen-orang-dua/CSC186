@@ -15,14 +15,10 @@ public class Order {
     private int purcasedC = 0;
     private int purcasedWJ = 0;
     private int purcasedHJ = 0;
-    Payment payment = new Payment(tprice, total);
+    //Payment payment = new Payment(tprice, total);
     Scanner input = new Scanner(System.in);
     
-    public String[] getNameArray() {return name;}
 
-    public double[] getQtyArray() {return qty;}
-
-    public int getOrderCount() {return x;}
     
         public int getPurcasedA() {
         return purcasedA;
@@ -52,7 +48,9 @@ public class Order {
         this.qty = new double[100];
         this.prices = new double[100];
     }
-   
+    public double[] getPrices(){
+        return prices;
+    }
 
         private void addItem(String itemName, double itemPrice) {
 
@@ -149,6 +147,7 @@ public class Order {
                 case "0":
                     continueOrdering = false;
                     printOrderSummary();
+                    Payment payment = new Payment(tprice, total);
                     payment.payMethod();
                     break;
 
@@ -198,6 +197,7 @@ public class Order {
         for (int i = 0; i < x; i++) {
             total += prices[i];
         }
+        this.tprice = total;
         return total;
     }
 
