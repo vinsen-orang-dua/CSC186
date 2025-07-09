@@ -1,0 +1,23 @@
+public class Cash extends Payment{
+    private double amount;
+    private double tprice;
+    
+    public Cash(double tprice, int[] totalCust,double total, double amount){
+        super(tprice,totalCust,total);
+        this.amount = amount;
+    }
+    public String payByCash(double amount){
+        double change=0.0;
+        this.amount = amount;
+        
+        if (amount < tprice) {
+            return "Money not enough to pay.";
+        } else {
+            if (amount > tprice) {
+               change = amount - tprice;
+               return "\nYou have RM" + change + " change.\nPlease go to counter to collect your change.";
+            } else {
+                return "\nNo change to collect.\n======================================================"; }
+        }
+    }
+}
