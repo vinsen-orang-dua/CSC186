@@ -7,12 +7,15 @@ public class MainApp {
         Food foodMenu = new Food(); 
         Beverages beverageMenu = new Beverages();
         Order order = new Order(foodMenu, beverageMenu);
-        
+
         double total =0.0;
         double tprice = 0.0;
-        int[] totalCust = new int[1]; // index 0 = customer count
-        Payment payment = new Payment(tprice,totalCust,total);
-        
+        double amt = 0;
+        int cardNum =0;
+        Cash cash = new Cash(tprice,total,amt);
+        Card card = new Card(tprice,total,cardNum);
+        Payment payment = new Payment(tprice,total);        
+
         final int MAX_attempts = 3;
 
         System.out.println("  ============================================");
@@ -185,81 +188,56 @@ public class MainApp {
                                     else{
                                         user = new Membership(userID, password, "", false);
                                     }
+                                    
 
                                     if (user.login()) {
                                         System.out.println("Login successful!");
                                         System.out.println("Welcome, " + user.getCustName() + "!");
                                         order.clearOrder();
                                         order.placeOrder();
-                                        
-                                        double totalOrderPrice = order.getTotalPrice();
-                                        payment.setTotalPrice(totalOrderPrice);
 
-                                        // Show order summary
-                                        order.printOrderSummary();
+                                        //double totalOrderPrice = order.getTotalPrice();
+                                        //payment.setTotalPrice(totalOrderPrice);
+                                       break;
 
-                                        // Choose payment method
-                                        System.out.println("\nHow would you like to pay?");
-                                        System.out.println("[1] Cash");
-                                        System.out.println("[2] Card (10% discount)");
-                                        System.out.print("Choose option: ");
-                                        int payOpt = input.nextInt();
-                                        input.nextLine();
-
-                                        String result;
-                                        if (payOpt == 1) {
-                                            System.out.print("Enter amount: RM");
-                                            double amt = input.nextDouble();
-                                            input.nextLine();
-                                            result = payment.payByCash(amt);
-                                        } else if (payOpt == 2) {
-                                            result = payment.payByCard();
-                                        } else {
-                                            result = "Invalid payment option selected.";
-                                        }
-
-                                        System.out.println(result);
-
-                                        break;
-
-                                    } else {
-                                        loginAttempts++;
-                                        System.out.println("Invalid user ID or password :(");
-                                        System.out.println("Remaining attempts: " + loginAttempts + ("/3"));
-                                    }
-                                } catch (InputMismatchException e) {
-                                    System.out.println("Invalid input. Please enter numbers only.");
-                                    input.nextLine();
+                                    }else {
+                                    loginAttempts++;
+                                    System.out.println("Invalid User ID or password :(");
+                                    System.out.println("Remaining attempts: " + (3 - loginAttempts));
                                 }
-                                if (loginAttempts >= MAX_attempts){
-                                    System.out.println("Maximum attempt has been reached!!! Returning back to Customer Section");
-                                    break;
-                                }
-                            } while (true);
+                            } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Please enter numbers only.");
+                            input.nextLine();
                         }
-
-                        else if (choice.equalsIgnoreCase("B")) {
+                        if (loginAttempts >= MAX_attempts){
+                            System.out.println("Maximum attempt has been reached!!! Returning back to Customer Section");
                             break;
-                        } else {
-                            System.out.println("Invalid option. Enter again.");
                         }
-                    } while (!choice.equalsIgnoreCase("B"));
+                    } while (true);
                 }
 
-                else if (opt == 0) {
-                    System.out.println("+=========================================+");
-                    System.out.println("|   😊 Thank you for using our system! 😊 ?   |");
-                    System.out.println("+=========================================+");
-
-                    System.exit(0);
+                else if (choice.equalsIgnoreCase("B")) {
+                    break;
                 } else {
-                    System.out.println("Invalid input, try again.");
+                    System.out.println("Invalid option. Enter again.");
                 }
+            } while (!choice.equalsIgnoreCase("B"));
+        }
 
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input! Please enter numbers only.");
-                input.nextLine(); // clear invalid input
-            }
-        } while (opt != 0);
+        else if (opt == 0) {
+            System.out.println("+=========================================+");
+            System.out.println("|   😊 Thank you for using our system!    |");
+            System.out.println("+=========================================+");
+
+            System.exit(0);
+        } else {
+            System.out.println("Invalid input, try again.");
+        }
+
+    } catch (InputMismatchException e) {
+        System.out.println("Invalid input! Please enter numbers only.");
+        input.nextLine(); // clear invalid input
     }
+} while (opt != 0);
+}
 }
