@@ -1,12 +1,12 @@
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Card extends Payment{
-    private int cardNum;
-    private double tprice;
-    Scanner in = new Scanner(System.in);
+    //private int cardNum;
+    //private double tprice;
+    //Scanner in = new Scanner(System.in);
     
-    public Card(double tprice, int[] totalCust,double total, int cardNum){
-        super(tprice,totalCust,total);
+    public Card(double tprice,double total, int cardNum){
+        super(tprice,total);
         this.cardNum = cardNum;
     }
     public String payByCard() {   
