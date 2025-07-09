@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class Card extends Payment{
+    private int cardNum;
+    private double tprice;
+    Scanner in = new Scanner(System.in);
+    
+    public Card(double tprice, int[] totalCust,double total, int cardNum){
+        super(tprice,totalCust,total);
+        this.cardNum = cardNum;
+    }
+    public String payByCard() {   
+       
+       
+       tprice = tprice - (tprice * 0.1); 
+       return "\nTotal Price: RM"+ tprice +"\nRM"+ tprice +" has been deducted from your account.\n======================================================";
+    }
+}
