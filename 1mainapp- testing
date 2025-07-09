@@ -193,6 +193,7 @@ public class MainApp {
                                     if (user.login()) {
                                         System.out.println("Login successful!");
                                         System.out.println("Welcome, " + user.getCustName() + "!");
+                                        LoginSession.setCurrentUserID(userID); // tracks the user if its member or not
                                         order.clearOrder();
                                         order.placeOrder();
 
