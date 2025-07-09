@@ -39,13 +39,17 @@ public class Admin extends User{
     }
 
     public void disItemSold(Order order) {
-        System.out.println("\n+=========== ITEMS SOLD ============+");
-        System.out.println("\n+=========== Burgur Ayam "+order.getPurcasedA()+"============+");
-        System.out.println("\n+=========== Burgur Daging"+order.getPurcasedD()+" ============+");
-        System.out.println("\n+=========== Spegeti Carbonara "+order.getPurcasedC()+"============+");
-        System.out.println("\n+=========== Watwermelon Juice "+order.getPurcasedWJ()+"============+");
-        System.out.println("\n+=========== Honey Mommy"+order.getPurcasedHJ()+"============+");
-        System.out.println("+===================================+");
+        System.out.println("\n+===========================================+");
+        System.out.println("|              ITEMS SOLD REPORT            |");
+        System.out.println("+-----------------------------+-------------+");
+        System.out.printf("| %-27s | %-11s |\n", "Item", "Quantity");
+        System.out.println("+-----------------------------+-------------+");
+        System.out.printf("| %-27s | x%-10d |\n", "Burger Ayam", order.getPurcasedA());
+        System.out.printf("| %-27s | x%-10d |\n", "Burger Daging", order.getPurcasedD());
+        System.out.printf("| %-27s | x%-10d |\n", "Spaghetti Carbonara", order.getPurcasedC());
+        System.out.printf("| %-27s | x%-10d |\n", "Watermelon Juice", order.getPurcasedWJ());
+        System.out.printf("| %-27s | x%-10d |\n", "Honeydew Juice", order.getPurcasedHJ());
+        System.out.println("+-----------------------------+-------------+");
     }
 
     public void updateMenu() {
@@ -148,7 +152,7 @@ public class Admin extends User{
             }
 
             if (!hasData){
-                System.out.println("|           No customer found in the system.      |");
+                System.out.println("|         No customer found in the system.        |");
             }
 
             System.out.println("+=================================================+");
