@@ -49,6 +49,7 @@ public class Admin extends User{
         } else {
             for (int i = 0; i < count; i++) {
                 System.out.printf("| %-25s x%-3.0f    |\n", items[i], qty[i]);
+                i++;
             }
         }
         System.out.println("+===================================+");
