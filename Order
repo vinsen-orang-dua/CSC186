@@ -1,13 +1,23 @@
 import java.util.Scanner;
 
 public class Order {
+    protected double total;
+    protected double tprice;
+    private double quantity;
     private Food foodMenu;
     private Beverages beverageMenu;
     private String[] name;
     private double[] qty;
     private double[] prices;
     private int x = 0;
-    private Scanner input = new Scanner(System.in);
+    Payment payment = new Payment(tprice, total);
+    Scanner input = new Scanner(System.in);
+    
+    public String[] getNameArray() {return name;}
+
+    public double[] getQtyArray() {return qty;}
+
+    public int getOrderCount() {return x;}
 
     public Order(Food foodMenu, Beverages beverageMenu) {
         this.foodMenu = foodMenu;
@@ -18,23 +28,39 @@ public class Order {
     }
    
 
+        private void addItem(String itemName, double itemPrice) {
+
+        name[x] = itemName;
+        qty[x] = quantity;
+        prices[x] = itemPrice * quantity;
+        x++;
+
+        System.out.println("✅ " + itemName + " x" + (int) quantity + " added to your order.");
+    }
+    
     public void placeOrder() {
         boolean continueOrdering = true;
 
         while (continueOrdering) {
             // Display unified menu
-            System.out.println("\n================= 💩FULL MENU =================");
+            System.out.println("\n================= FULL MENU =================");
             System.out.println(foodMenu.getFoodList());
             System.out.println(beverageMenu.getBeveList());
             System.out.println("Enter item code (A/D/C/WJ/HJ) or 0 to finish ordering:");
             System.out.print("Your choice: ");
             String code = input.nextLine().toUpperCase();
+            
 
             switch (code) {
-                    // Food
+                    
+                    
                 case "A":
                     if (foodMenu.isApCheck()) {
                         addItem("Burger Ayam", foodMenu.getAp());
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextDouble();
+                        input.nextLine();
+                        qty[x] = quantity;
                     } else {
                         System.out.println("❌ Sorry, Burger Ayam is currently out of order.");
                     }
@@ -42,7 +68,12 @@ public class Order {
 
                 case "D":
                     if (foodMenu.isDpCheck()) {
+                        
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextDouble();
+                        input.nextLine();
                         addItem("Burger Daging", foodMenu.getDp());
+                        qty[x] = quantity;
                     } else {
                         System.out.println("❌ Sorry, Burger Daging is currently out of order.");
                     }
@@ -51,6 +82,10 @@ public class Order {
                 case "C":
                     if (foodMenu.isCpCheck()) {
                         addItem("Spaghetti Carbonara", foodMenu.getCp());
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextDouble();
+                        input.nextLine();
+                        qty[x] = quantity;
                     } else {
                         System.out.println("❌ Sorry, Spaghetti Carbonara is currently out of order.");
                     }
@@ -59,7 +94,12 @@ public class Order {
                     // Beverages
                 case "WJ":
                     if (beverageMenu.isWJpcheck()) {
+                        
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextDouble();
+                        input.nextLine();
                         addItem("Watermelon Juice", beverageMenu.getWJp());
+                        qty[x] = quantity;
                     } else {
                         System.out.println("❌ Sorry, Watermelon Juice is currently out of order.");
                     }
@@ -68,6 +108,10 @@ public class Order {
                 case "HJ":
                     if (beverageMenu.isHJpcheck()) {
                         addItem("Honeydew Juice", beverageMenu.getHJp());
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextDouble();
+                        input.nextLine();
+                        qty[x] = quantity;
                     } else {
                         System.out.println("❌ Sorry, Honeydew Juice is currently out of order.");
                     }
@@ -75,25 +119,14 @@ public class Order {
 
                 case "0":
                     continueOrdering = false;
+                    printOrderSummary();
+                    payment.payMethod();
                     break;
 
                 default:
                     System.out.println("⚠️ Invalid code. Please try again.");
             }
         }
-    }
-
-    private void addItem(String itemName, double itemPrice) {
-        System.out.print("Enter quantity: ");
-        double quantity = input.nextDouble();
-        input.nextLine(); // Consume newline
-
-        name[x] = itemName;
-        qty[x] = quantity;
-        prices[x] = itemPrice * quantity;
-        x++;
-
-        System.out.println("✅ " + itemName + " x" + (int) quantity + " added to your order.");
     }
     
     public void clearOrder() {
@@ -114,12 +147,6 @@ public class Order {
         }
         System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
     }
-
-    public String[] getNameArray() {return name;}
-
-    public double[] getQtyArray() {return qty;}
-
-    public int getOrderCount() {return x;}
 
     public double getTotalPrice() {
         double total = 0;
