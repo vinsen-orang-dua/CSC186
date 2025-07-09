@@ -3,13 +3,18 @@ import java.util.Scanner;
 public class Order {
     protected double total;
     protected double tprice;
-    private double quantity;
+    private int quantity;
     private Food foodMenu;
     private Beverages beverageMenu;
     private String[] name;
     private double[] qty;
     private double[] prices;
     private int x = 0;
+    private int purcasedA = 0;
+    private int purcasedD = 0;
+    private int purcasedC = 0;
+    private int purcasedWJ = 0;
+    private int purcasedHJ = 0;
     Payment payment = new Payment(tprice, total);
     Scanner input = new Scanner(System.in);
     
@@ -18,6 +23,27 @@ public class Order {
     public double[] getQtyArray() {return qty;}
 
     public int getOrderCount() {return x;}
+    
+        public int getPurcasedA() {
+        return purcasedA;
+    }
+
+    public int getPurcasedD() {
+        return purcasedD;
+    }
+
+    public int getPurcasedC() {
+        return purcasedC;
+    }
+
+    public int getPurcasedWJ() {
+        return purcasedWJ;
+    }
+
+    public int getPurcasedHJ() {
+        return purcasedHJ;
+    }
+
 
     public Order(Food foodMenu, Beverages beverageMenu) {
         this.foodMenu = foodMenu;
@@ -56,11 +82,12 @@ public class Order {
                     
                 case "A":
                     if (foodMenu.isApCheck()) {
-                        addItem("Burger Ayam", foodMenu.getAp());
                         System.out.print("Enter quantity: ");
-                        quantity = input.nextDouble();
+                        quantity = input.nextInt();
                         input.nextLine();
+                        addItem("Burger Ayam", foodMenu.getAp());
                         qty[x] = quantity;
+                        purcasedA = purcasedA + quantity; 
                     } else {
                         System.out.println("❌ Sorry, Burger Ayam is currently out of order.");
                     }
@@ -68,12 +95,12 @@ public class Order {
 
                 case "D":
                     if (foodMenu.isDpCheck()) {
-                        
                         System.out.print("Enter quantity: ");
-                        quantity = input.nextDouble();
+                        quantity = input.nextInt();
                         input.nextLine();
                         addItem("Burger Daging", foodMenu.getDp());
                         qty[x] = quantity;
+                        purcasedD = purcasedD + quantity;
                     } else {
                         System.out.println("❌ Sorry, Burger Daging is currently out of order.");
                     }
@@ -81,11 +108,12 @@ public class Order {
 
                 case "C":
                     if (foodMenu.isCpCheck()) {
-                        addItem("Spaghetti Carbonara", foodMenu.getCp());
                         System.out.print("Enter quantity: ");
-                        quantity = input.nextDouble();
+                        quantity = input.nextInt();
                         input.nextLine();
+                        addItem("Spaghetti Carbonara", foodMenu.getCp());
                         qty[x] = quantity;
+                        purcasedC = purcasedC + quantity;
                     } else {
                         System.out.println("❌ Sorry, Spaghetti Carbonara is currently out of order.");
                     }
@@ -94,12 +122,12 @@ public class Order {
                     // Beverages
                 case "WJ":
                     if (beverageMenu.isWJpcheck()) {
-                        
                         System.out.print("Enter quantity: ");
-                        quantity = input.nextDouble();
+                        quantity = input.nextInt();
                         input.nextLine();
                         addItem("Watermelon Juice", beverageMenu.getWJp());
                         qty[x] = quantity;
+                        purcasedWJ = purcasedWJ + quantity;
                     } else {
                         System.out.println("❌ Sorry, Watermelon Juice is currently out of order.");
                     }
@@ -107,11 +135,12 @@ public class Order {
 
                 case "HJ":
                     if (beverageMenu.isHJpcheck()) {
-                        addItem("Honeydew Juice", beverageMenu.getHJp());
                         System.out.print("Enter quantity: ");
-                        quantity = input.nextDouble();
+                        quantity = input.nextInt();
                         input.nextLine();
+                        addItem("Honeydew Juice", beverageMenu.getHJp());
                         qty[x] = quantity;
+                        purcasedHJ = purcasedHJ + quantity;
                     } else {
                         System.out.println("❌ Sorry, Honeydew Juice is currently out of order.");
                     }
@@ -145,7 +174,23 @@ public class Order {
             System.out.printf("%-25s x%.0f - RM%.2f\n", name[i], qty[i], prices[i]);
             total += prices[i];
         }
-        System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
+
+        boolean isMember = Customer.isMember(LoginSession.getCurrentUserID());
+
+        if (isMember && total > 20.0) {
+            double discount = total * 0.20;
+            double discountedTotal = total - discount;
+            System.out.printf("---------------------------------\n");
+            System.out.printf("TOTAL:             RM%.2f\n", total);
+            System.out.printf("MEMBER DISCOUNT:   RM%.2f\n", discount);
+            System.out.printf("DISCOUNTED TOTAL:  RM%.2f\n", discountedTotal);
+            this.total = discountedTotal;
+            this.tprice = discountedTotal;
+        } else {
+            System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
+            this.total = total;
+            this.tprice = total;
+        }
     }
 
     public double getTotalPrice() {
