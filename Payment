@@ -30,37 +30,53 @@ public class Payment {
         System.out.println("\nHow would you like to pay?");
         System.out.println("[1] Cash");
         System.out.println("[2] Card (10% discount)");
-        System.out.print("Choose option: ");
-        int payOpt = input.nextInt();
+        
+        boolean validOption = false;
+        do{
+            System.out.print("Choose option: ");
+            int payOpt = input.nextInt();
+            
+            String result;
+            double paymentAmount = tprice;
 
-        String result;
-        double paymentAmount = tprice;
+            switch (payOpt) {
+                case 1 :
+                    boolean paid = false;
+                    do{
+                        System.out.print("Enter amount: RM");
+                        amt = input.nextDouble();
+                        input.nextLine();
+                        Cash cash = new Cash(tprice, total, amt);
+                        result = cash.payByCash();
+                        System.out.println(result);
+                    
+                        if(!result.equals("Money not enough to pay.")){
+                            updateSaleStats(tprice);
+                            paid = true;
+                        }else{
+                            System.out.println("Please enter a valid amount.");
+                        }
+                    }while(!paid);
+                    validOption = true;
+                    break;
 
-        switch (payOpt) {
-            case 1 :
-                System.out.print("Enter amount: RM");
-                amt = input.nextDouble();
-                input.nextLine();
-                Cash cash = new Cash(tprice, total, amt);
-                result = cash.payByCash();
-                updateSaleStats(tprice);
-                break;
-
-            case 2: 
+                case 2: 
                 
-                Card card = new Card(tprice, total, cardNum);
-                result = card.payByCard();
-                double discountedPrice = tprice * 0.9;
-                totalSales += discountedPrice;
-                updateSaleStats(discountedPrice);
-            break;
+                    Card card = new Card(tprice, total, cardNum);
+                    result = card.payByCard();
+                    double discountedPrice = tprice * 0.9;
+                    totalSales += discountedPrice;
+                    updateSaleStats(discountedPrice);
+                    System.out.println(result);
+                    validOption = true;
+                    break;
                
 
-            default: 
-                result = "Invalid payment option selected.";
-                break;
-        }
-        System.out.println(result);
+                default: 
+                    System.out.println("Invalid payment option selected.");
+                    break;
+            }
+        }while(!validOption);
 
     }
 
