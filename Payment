@@ -1,15 +1,14 @@
 import java.util.*;
 public class Payment {
     protected double total;
-    private double highestSale;
-    private double lowestSale;
-    private double totalSales;
+    private static double totalSales;
+    private static double highestSale = Double.MIN_VALUE;
+    private static double lowestSale = Double.MAX_VALUE;
     protected double amt;
     private double change = 0.0;
     private char opt;
     private Food foodMenu;
     private Beverages beverageMenu;
-
     protected double tprice;
     int cardNum = 0;
 
@@ -20,7 +19,7 @@ public class Payment {
     public double getTotal() { return total; }
     public double getTotalSales() { return totalSales; }
     public Payment(Order order){}
-
+    
     public Payment(double tprice,  double total) {
         this.total = total;
         this.tprice = tprice;
@@ -35,6 +34,7 @@ public class Payment {
         int payOpt = input.nextInt();
 
         String result;
+        double paymentAmount = tprice;
 
         switch (payOpt) {
             case 1 :
@@ -42,21 +42,24 @@ public class Payment {
                 amt = input.nextDouble();
                 input.nextLine();
                 Cash cash = new Cash(tprice, total, amt);
-                cash = new Cash(tprice, total, amt);
                 result = cash.payByCash();
-
+                updateSaleStats(tprice);
                 break;
 
             case 2: 
+                
                 Card card = new Card(tprice, total, cardNum);
                 result = card.payByCard();
-                break;
+                double discountedPrice = tprice * 0.9;
+                totalSales += discountedPrice;
+                updateSaleStats(discountedPrice);
+            break;
+               
 
             default: 
                 result = "Invalid payment option selected.";
                 break;
         }
-
         System.out.println(result);
 
     }
@@ -64,18 +67,13 @@ public class Payment {
     public double getTprice(){
         return tprice;
     }
-
-    public double getHighestSale(){
-        if (this.total > this.highestSale) {
-            this.highestSale = this.total;
-        }
-        return highestSale;
+    private static void updateSaleStats(double amount) {
+        if (amount > highestSale) highestSale = amount;
+        if (amount < lowestSale) lowestSale = amount;
+        totalSales += amount;
     }
 
-    public double getLowestSale(){
-        if (this.total < this.lowestSale ) {
-            this.lowestSale = this.total;
-        }
-        return lowestSale;
-    }
+    public double getHighestSale() { return highestSale; }
+    public double getLowestSale() { return lowestSale; }
+
 }
