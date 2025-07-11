@@ -122,11 +122,18 @@ public class Order {
 
                 case "0":
                     if (x == 0) {
-                        System.out.println("⚠️ No items ordered yet. Please add at least one item before proceeding.");
+                        System.out.println("⚠️ No items ordered. Cannot proceed to payment.");
                         break;
                     }
+
                     continueOrdering = false;
-                    printOrderSummary(userID);
+
+                    OrderDetail orderDetail = new OrderDetail(name, qty, prices, x, userID);
+                    double finalTotal = orderDetail.printSummaryAndGetTotal();
+
+                    this.total = finalTotal;
+                    this.tprice = finalTotal;
+
                     Payment payment = new Payment(tprice, total);
                     payment.payMethod();
                     break;
@@ -148,32 +155,6 @@ public class Order {
             name[i] = null;
             qty[i] = 0;
             prices[i] = 0;
-        }
-    }
-
-    public void printOrderSummary(int userID) {
-        boolean isMember = Customer.isMember(userID);
-
-        System.out.println("\n========= ORDER SUMMARY =========");
-        double total = 0;
-        for (int i = 0; i < x; i++) {
-            System.out.printf("%-25s x%.0f - RM%.2f\n", name[i], qty[i], prices[i]);
-            total += prices[i];
-        }
-
-        if (isMember && total >= 20.0) {
-            double discount = total * 0.20;
-            double discountedTotal = total - discount;
-            System.out.printf("---------------------------------\n");
-            System.out.printf("TOTAL:             RM%.2f\n", total);
-            System.out.printf("MEMBER DISCOUNT:   RM%.2f\n", discount);
-            System.out.printf("DISCOUNTED TOTAL:  RM%.2f\n", discountedTotal);
-            this.total = discountedTotal;
-            this.tprice = discountedTotal;
-        } else {
-            System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
-            this.total = total;
-            this.tprice = total;
         }
     }
 
