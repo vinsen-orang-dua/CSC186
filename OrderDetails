@@ -1,0 +1,38 @@
+public class OrderDetail {
+    private String[] name;
+    private double[] qty;
+    private double[] prices;
+    private int itemCount;
+    private boolean isMember;
+
+    public OrderDetail(String[] name, double[] qty, double[] prices, int itemCount, int userID) {
+        this.name = name;
+        this.qty = qty;
+        this.prices = prices;
+        this.itemCount = itemCount;
+        this.isMember = Customer.isMember(userID);
+    }
+
+    public double printSummaryAndGetTotal() {
+        System.out.println("\n========= ORDER SUMMARY =========");
+
+        double total = 0;
+        for (int i = 0; i < itemCount; i++) {
+            System.out.printf("%-25s x%.0f - RM%.2f\n", name[i], qty[i], prices[i]);
+            total += prices[i];
+        }
+
+        if (isMember && total >= 20.0) {
+            double discount = total * 0.20;
+            double discountedTotal = total - discount;
+            System.out.printf("---------------------------------\n");
+            System.out.printf("TOTAL:             RM%.2f\n", total);
+            System.out.printf("MEMBER DISCOUNT:   RM%.2f\n", discount);
+            System.out.printf("DISCOUNTED TOTAL:  RM%.2f\n", discountedTotal);
+            return discountedTotal;
+        } else {
+            System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
+            return total;
+        }
+    }
+}
