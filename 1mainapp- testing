@@ -13,7 +13,7 @@ public class MainApp {
         double tprice = 0.0;
         double amt = 0;
         int cardNum =0;
-        Payment payment = new Payment(tprice,total);        
+                
 
         final int MAX_attempts = 3;
 
@@ -78,7 +78,7 @@ public class MainApp {
 
                                     switch (choice) {
                                         case "1":
-                                            admin.disSales(payment);
+                                            admin.disSales();
                                             break;
                                         case "2":
                                             admin.disItemSold(order);
