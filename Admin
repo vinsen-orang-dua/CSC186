@@ -30,16 +30,16 @@ public class Admin extends User{
         }
     }
 
-    public void disSales(Payment payment) {
-        if (payment.getTotalSales() == 0){
+    public void disSales() {
+        if (Payment.getTotalSales() == 0){
             System.out.println("+=========== SALES REPORT ===========+");
             System.out.println("|      NO SALES HAS BEEN MADE YET    |");  
             System.out.println("+====================================+");
         }else{
             System.out.println("\n+=========== SALES REPORT ===========+");
-            System.out.printf("| Total Sales:    RM%-16.2f |\n", payment.getTotalSales());
-            System.out.printf("| Highest Sale:   RM%-16.2f |\n", payment.getHighestSale());
-            System.out.printf("| Lowest Sale:    RM%-16.2f |\n", payment.getLowestSale());
+            System.out.printf("| Total Sales:    RM%-16.2f |\n", Payment.getTotalSales());
+            System.out.printf("| Highest Sale:   RM%-16.2f |\n", Payment.getHighestSale());
+            System.out.printf("| Lowest Sale:    RM%-16.2f |\n", Payment.getLowestSale());
             System.out.println("+====================================+");
         }
     }
