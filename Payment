@@ -1,5 +1,5 @@
 import java.util.*;
-public class Payment {
+public abstract class Payment {
     protected double total;
     private static double totalSales = 0.0;
     private static double highestSale = Double.MIN_VALUE;
@@ -15,7 +15,7 @@ public class Payment {
     private Scanner input = new Scanner(System.in);
 
     public double getTotal() { return total; }
-    public double getTotalSales() { return totalSales; }
+    public static double getTotalSales() { return totalSales; }
     public Payment(Order order){}
     
     public Payment(double tprice,  double total) {
@@ -23,6 +23,7 @@ public class Payment {
         this.tprice = tprice;
 
     }
+    public abstract String pay();
 
     public void payMethod(){
         System.out.println("\nHow would you like to pay?");
@@ -45,7 +46,7 @@ public class Payment {
                         amt = input.nextDouble();
                         input.nextLine();
                         Cash cash = new Cash(tprice, total, amt);
-                        result = cash.payByCash();
+                        result = cash.pay();
                         System.out.println(result);
                     
                         if(!result.equals("Money not enough to pay.")){
@@ -61,7 +62,7 @@ public class Payment {
                 case 2: 
                 
                     Card card = new Card(tprice, total, cardNum);
-                    result = card.payByCard();
+                    result = card.pay();
                     double discountedPrice = tprice * 0.9;
                     updateSaleStats(discountedPrice);
                     System.out.println(result);
@@ -79,13 +80,13 @@ public class Payment {
 
     public double getTprice(){return tprice;}
     
-    private static void updateSaleStats(double amount) {
+    protected static void updateSaleStats(double amount) {
         if (amount > highestSale) highestSale = amount;
         if (amount < lowestSale) lowestSale = amount;
         totalSales += amount;
     }
 
-    public double getHighestSale() { return highestSale; }
-    public double getLowestSale() { return lowestSale; }
+    public static double getHighestSale() { return highestSale; }
+    public static double getLowestSale() { return lowestSale; }
 
 }
