@@ -31,11 +31,17 @@ public class Admin extends User{
     }
 
     public void disSales(Payment payment) {
-        System.out.println("\n+=========== SALES REPORT ===========+");
-        System.out.printf("| Total Sales:    RM%-16.2f |\n", payment.getTotalSales());
-        System.out.printf("| Highest Sale:   RM%-16.2f |\n", payment.getHighestSale());
-        System.out.printf("| Lowest Sale:    RM%-16.2f |\n", payment.getLowestSale());
-        System.out.println("+====================================+");
+        if (payment.getTotalSales() == 0){
+            System.out.println("+=========== SALES REPORT ===========+");
+            System.out.println("|      NO SALES HAS BEEN MADE YET    |");  
+            System.out.println("+====================================+");
+        }else{
+            System.out.println("\n+=========== SALES REPORT ===========+");
+            System.out.printf("| Total Sales:    RM%-16.2f |\n", payment.getTotalSales());
+            System.out.printf("| Highest Sale:   RM%-16.2f |\n", payment.getHighestSale());
+            System.out.printf("| Lowest Sale:    RM%-16.2f |\n", payment.getLowestSale());
+            System.out.println("+====================================+");
+        }
     }
 
     public void disItemSold(Order order) {
@@ -44,11 +50,11 @@ public class Admin extends User{
         System.out.println("+-----------------------------+-------------+");
         System.out.printf("| %-27s | %-11s |\n", "Item", "Quantity");
         System.out.println("+-----------------------------+-------------+");
-        System.out.printf("| %-27s | x%-10d |\n", "Burger Ayam", order.getPurcasedA());
-        System.out.printf("| %-27s | x%-10d |\n", "Burger Daging", order.getPurcasedD());
-        System.out.printf("| %-27s | x%-10d |\n", "Spaghetti Carbonara", order.getPurcasedC());
-        System.out.printf("| %-27s | x%-10d |\n", "Watermelon Juice", order.getPurcasedWJ());
-        System.out.printf("| %-27s | x%-10d |\n", "Honeydew Juice", order.getPurcasedHJ());
+        System.out.printf("| %-27s | x%-10d |\n", "Burger Ayam", order.getPurchasedA());
+        System.out.printf("| %-27s | x%-10d |\n", "Burger Daging", order.getPurchasedD());
+        System.out.printf("| %-27s | x%-10d |\n", "Spaghetti Carbonara", order.getPurchasedC());
+        System.out.printf("| %-27s | x%-10d |\n", "Watermelon Juice", order.getPurchasedWJ());
+        System.out.printf("| %-27s | x%-10d |\n", "Honeydew Juice", order.getPurchasedHJ());
         System.out.println("+-----------------------------+-------------+");
     }
 
