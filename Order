@@ -17,6 +17,11 @@ public class Order {
     private int purchasedC = 0;
     private int purchasedWJ = 0;
     private int purchasedHJ = 0;
+    private int A = 0;
+    private int D = 0;
+    private int C = 0;
+    private int WJ = 0;
+    private int HJ = 0;
     Scanner input = new Scanner(System.in);
 
     public int getPurchasedA() { return purchasedA; }
@@ -68,7 +73,7 @@ public class Order {
                         quantity = input.nextInt();
                         input.nextLine();
                         addItem("Burger Ayam", foodMenu.getAp(), quantity);
-                        purchasedA += quantity;
+                        A += quantity;
                     } else {
                         System.out.println("❌ Sorry, Burger Ayam is currently out of order.");
                     }
@@ -80,7 +85,7 @@ public class Order {
                         quantity = input.nextInt();
                         input.nextLine();
                         addItem("Burger Daging", foodMenu.getDp(), quantity);
-                        purchasedD += quantity;
+                        D += quantity;
                     } else {
                         System.out.println("❌ Sorry, Burger Daging is currently out of order.");
                     }
@@ -92,7 +97,7 @@ public class Order {
                         quantity = input.nextInt();
                         input.nextLine();
                         addItem("Spaghetti Carbonara", foodMenu.getCp(), quantity);
-                        purchasedC += quantity;
+                        C += quantity;
                     } else {
                         System.out.println("❌ Sorry, Spaghetti Carbonara is currently out of order.");
                     }
@@ -104,7 +109,7 @@ public class Order {
                         quantity = input.nextInt();
                         input.nextLine();
                         addItem("Watermelon Juice", beverageMenu.getWJp(), quantity);
-                        purchasedWJ += quantity;
+                        WJ += quantity;
                     } else {
                         System.out.println("❌ Sorry, Watermelon Juice is currently out of order.");
                     }
@@ -116,7 +121,7 @@ public class Order {
                         quantity = input.nextInt();
                         input.nextLine();
                         addItem("Honeydew Juice", beverageMenu.getHJp(), quantity);
-                        purchasedHJ += quantity;
+                        HJ += quantity;
                     } else {
                         System.out.println("❌ Sorry, Honeydew Juice is currently out of order.");
                     }
@@ -189,19 +194,25 @@ public class Order {
                     break;
 
                 case "X":
+                    A = 0;
+                    D = 0;
+                    C = 0;
+                    WJ = 0;
+                    HJ = 0;
                     clearOrder();
                     System.out.println("❌ Order cancelled. Returning to login menu");
-                    purchasedA = 0;
-                    purchasedD = 0;
-                    purchasedC = 0;
-                    purchasedWJ = 0;
-                    purchasedHJ = 0;
+
                     return;
 
                 default:
                     System.out.println("⚠️ Invalid code. Please try again.");
             }
         }
+        purchasedA += A;
+        purchasedD += D;
+        purchasedC += C;
+        purchasedWJ += WJ;
+        purchasedHJ += HJ;   
     }
 
     public void clearOrder() {
