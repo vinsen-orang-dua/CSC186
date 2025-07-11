@@ -14,7 +14,7 @@ public class OrderDetail {
     }
 
     public double printSummaryAndGetTotal() {
-        System.out.println("\n========= ORDER SUMMARY =========");
+        System.out.println("\n========= ORDER DETAILS =========");
 
         double total = 0;
         for (int i = 0; i < itemCount; i++) {
