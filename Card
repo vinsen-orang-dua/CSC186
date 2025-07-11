@@ -4,7 +4,7 @@ public class Card extends Payment{
         super(tprice,total);
         this.cardNum = cardNum;
     }
-    public String payByCard() {   
+    public String pay() {   
        
        tprice = tprice - (tprice * 0.1); 
        return "\nTotal Price: RM"+ String.format("%.2f", tprice)+"\nRM"+ String.format("%.2f", tprice) +" has been deducted from your account.\n======================================================";
