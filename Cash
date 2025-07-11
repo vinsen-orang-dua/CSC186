@@ -7,9 +7,7 @@ public class Cash extends Payment {
         this.amt = amt;
     }
 
-    public double getAmt() {
-        return this.amt;
-    }
+    public double getAmt() {return this.amt;}
 
     public String payByCash() {
         double tprice = getTprice();
