@@ -1,9 +1,4 @@
-//import java.util.Scanner;
-
 public class Card extends Payment{
-    //private int cardNum;
-    //private double tprice;
-    //Scanner in = new Scanner(System.in);
     
     public Card(double tprice,double total, int cardNum){
         super(tprice,total);
@@ -11,8 +6,7 @@ public class Card extends Payment{
     }
     public String payByCard() {   
        
-       
        tprice = tprice - (tprice * 0.1); 
-       return "\nTotal Price: RM"+ tprice +"\nRM"+ tprice +" has been deducted from your account.\n======================================================";
+       return "\nTotal Price: RM"+ String.format("%.2f", tprice)+"\nRM"+ String.format("%.2f", tprice) +" has been deducted from your account.\n======================================================";
     }
 }
