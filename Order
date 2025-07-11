@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Order {
     protected double total;
     protected double tprice;
+    protected double amt;
+    int cardNum = 0;
     private int quantity;
     private Food foodMenu;
     private Beverages beverageMenu;
@@ -134,13 +136,66 @@ public class Order {
                     this.total = finalTotal;
                     this.tprice = finalTotal;
 
-                    Payment payment = new Payment(tprice, total);
-                    payment.payMethod();
+                   System.out.println("\nHow would you like to pay?");
+        System.out.println("[1] Cash");
+        System.out.println("[2] Card (10% discount)");
+        
+        boolean validOption = false;
+        do{
+            System.out.print("Choose option: ");
+            int payOpt = input.nextInt();
+            
+            String result;
+            double paymentAmount = tprice;
+
+            switch (payOpt) {
+                case 1 :
+                    boolean paid = false;
+                    do{
+                        System.out.print("Enter amount: RM");
+                        amt = input.nextDouble();
+                        input.nextLine();
+                        Cash cash = new Cash(tprice, total, amt);
+                        result = cash.pay();
+                        System.out.println(result);
+                    
+                        if(!result.equals("Money not enough to pay.")){
+                            Payment.updateSaleStats(this.total);
+                            paid = true;
+                        }else{
+                            System.out.println("Please enter a valid amount.");
+                        }
+                    }while(!paid);
+                    validOption = true;
+                    break;
+
+                case 2: 
+                
+                    Card card = new Card(tprice, total, cardNum);
+                    result = card.pay();
+                    double discountedPrice = tprice * 0.9;
+                    Payment.updateSaleStats(discountedPrice);
+                    System.out.println(result);
+                    validOption = true;
+                    break;
+               
+
+                default: 
+                    System.out.println("Invalid payment option selected.");
+                    break;
+            }
+        }while(!validOption);
+
                     break;
 
                 case "X":
                     clearOrder();
                     System.out.println("❌ Order cancelled. Returning to login menu");
+                    purchasedA = 0;
+                    purchasedD = 0;
+                    purchasedC = 0;
+                    purchasedWJ = 0;
+                    purchasedHJ = 0;
                     return;
 
                 default:
