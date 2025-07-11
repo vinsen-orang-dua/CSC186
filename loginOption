@@ -1,0 +1,118 @@
+import java.util.*;
+
+public class loginOption{
+    Scanner input = new Scanner(System.in);
+    private Order order;
+
+    final int MAX_attempts = 3;
+    // constructor
+    public loginOption(Order order) {
+        this.order = order;
+    }
+
+    public void loginOption(){
+        String choice;
+        do {
+            System.out.println("+=================+");
+            System.out.println("|   [1] Sign Up   |");
+            System.out.println("|-----------------|");
+            System.out.println("|   [2] Login     |");
+            System.out.println("|-----------------|");
+            System.out.println("|   [B] Back      |");
+            System.out.println("+=================+");
+            System.out.print("Choose option [1/2/B]: ");
+
+            choice = input.nextLine();
+            System.out.println("");
+
+            if (choice.equals("1")) {
+
+                try {
+                    System.out.print("Enter user ID (3 integer): ");
+                    int userID = input.nextInt();
+                    input.nextLine();
+
+                    System.out.print("Enter password: ");
+                    String password = input.nextLine();
+
+                    System.out.print("Enter your name: ");
+                    String custName = input.nextLine();
+
+                    System.out.print("Do you wanna register as our member?");
+                    System.out.print("\nPress 1 if YES | Press 2 if NO: ");
+                    int option = input.nextInt();
+                    input.nextLine();
+
+                    if(option == 1){
+                        boolean member = true;
+
+                        Customer membership = new Membership(userID, password, custName, member);
+                        membership.signUp();
+                        System.out.println("");
+                    }
+                    if(option == 2){
+                        boolean member = false;
+
+                        Customer membership = new Membership(userID, password, custName, member);
+                        membership.signUp();
+                        System.out.println("");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input! Please try again.");
+                    input.nextLine();
+                }
+            }
+
+            else if (choice.equals("2")) {
+                int loginAttempts = 0;
+                do {
+                    try {
+                        System.out.print("Enter user ID (3 integer): ");
+                        int userID = input.nextInt();
+                        input.nextLine();
+
+                        System.out.print("Enter password: ");
+                        String password = input.nextLine();
+
+                        boolean isMember = Customer.isMember(userID);
+                        Customer user;
+
+                        if(isMember){
+                            user = new Membership(userID, password, "", true);
+                        }
+                        else{
+                            user = new Membership(userID, password, "", false);
+                        }
+
+                        if (user.login()) {
+                            System.out.println("Login successful!");
+                            System.out.println("Welcome, " + user.getCustName() + "!");
+                            order.clearOrder();
+                            order.placeOrder(userID);
+                            break;
+
+                        }else {
+                            loginAttempts++;
+                            System.out.println("Invalid User ID or password :(");
+                            System.out.println("Remaining attempts: " + (3 - loginAttempts));
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter numbers only.");
+                        input.nextLine();
+                    }
+                    if (loginAttempts >= MAX_attempts){
+                        System.out.println("Maximum attempt has been reached!!! Returning back to Customer Section");
+                        break;
+                    }
+                } while (true);
+            }
+
+            else if (choice.equalsIgnoreCase("B")) {
+                return;
+            } else {
+                System.out.println("Invalid option. Enter again.");
+            }
+        } while (!choice.equalsIgnoreCase("B"));
+    }
+}
+
