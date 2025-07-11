@@ -1,0 +1,203 @@
+import java.util.Scanner;
+
+public class Order {
+    protected double total;
+    protected double tprice;
+    private int quantity;
+    private Food foodMenu;
+    private Beverages beverageMenu;
+    private String[] name;
+    private double[] qty;
+    private double[] prices;
+    private int x = 0;
+    private int purchasedA = 0;
+    private int purchasedD = 0;
+    private int purchasedC = 0;
+    private int purchasedWJ = 0;
+    private int purchasedHJ = 0;
+    Scanner input = new Scanner(System.in);
+
+    public int getPurchasedA() {return purchasedA;}
+
+    public int getPurchasedD() {return purchasedD;}
+
+    public int getPurchasedC() {return purchasedC;}
+
+    public int getPurchasedWJ() {return purchasedWJ;}
+
+    public int getPurchasedHJ() {return purchasedHJ;}
+
+    public Order(Food foodMenu, Beverages beverageMenu) {
+        this.foodMenu = foodMenu;
+        this.beverageMenu = beverageMenu;
+        this.name = new String[100];
+        this.qty = new double[100];
+        this.prices = new double[100];
+    }
+
+    public double[] getPrices(){return prices;}
+
+    private void addItem(String itemName, double itemPrice, int quantity) {
+
+        name[x] = itemName;
+        qty[x] = quantity;
+        prices[x] = itemPrice * quantity;
+        x++;
+
+        System.out.println("✅ " + itemName + " x" + (int) quantity + " added to your order.");
+    }
+
+    public void placeOrder(int userID) {
+        boolean continueOrdering = true;
+
+        while (continueOrdering) {
+            // Display unified menu
+            System.out.println("\n================= FULL MENU =================");
+            System.out.println(foodMenu.getFoodList());
+            System.out.println(beverageMenu.getBeveList());
+            System.out.println("[0] to proceed with order | [X] to cancel order");
+            System.out.println("Enter item code (A/D/C/WJ/HJ):");
+            System.out.print("Your choice: ");
+            String code = input.nextLine().toUpperCase();
+
+            switch (code) {
+
+                case "A":
+                    if (foodMenu.isApCheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Burger Ayam", foodMenu.getAp(), x);
+                        qty[x] = quantity;
+                        purchasedA = purchasedA + quantity; 
+                    } else {
+                        System.out.println("❌ Sorry, Burger Ayam is currently out of order.");
+                    }
+                    break;
+
+                case "D":
+                    if (foodMenu.isDpCheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Burger Daging", foodMenu.getDp(), x);
+                        qty[x] = quantity;
+                        purchasedD = purchasedD + quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Burger Daging is currently out of order.");
+                    }
+                    break;
+
+                case "C":
+                    if (foodMenu.isCpCheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Spaghetti Carbonara", foodMenu.getCp(),x);
+                        qty[x] = quantity;
+                        purchasedC = purchasedC + quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Spaghetti Carbonara is currently out of order.");
+                    }
+                    break;
+
+                    // Beverages
+                case "WJ":
+                    if (beverageMenu.isWJpcheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Watermelon Juice", beverageMenu.getWJp(),x);
+                        qty[x] = quantity;
+                        purchasedWJ = purchasedWJ + quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Watermelon Juice is currently out of order.");
+                    }
+                    break;
+
+                case "HJ":
+                    if (beverageMenu.isHJpcheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Honeydew Juice", beverageMenu.getHJp(),x);
+                        qty[x] = quantity;
+                        purchasedHJ = purchasedHJ + quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Honeydew Juice is currently out of order.");
+                    }
+                    break;
+
+                case "0":
+                    continueOrdering = false;
+                    printOrderSummary(userID);
+                    Payment payment = new Payment(tprice, total);
+                    payment.payMethod();
+                    break;
+
+                case "X":
+                    clearOrder();
+                    System.out.println("❌ Order cancelled. Returning to login menu");
+                    return;
+
+                default:
+                    System.out.println("⚠️ Invalid code. Please try again.");
+            }
+        }
+    }
+
+    public void clearOrder() {
+        x = 0;
+        for (int i = 0; i < name.length; i++) {
+            name[i] = null;
+            qty[i] = 0;
+            prices[i] = 0;
+        }
+
+        // Reset purchase tracking
+        purchasedA = 0;
+        purchasedD = 0;
+        purchasedC = 0;
+        purchasedWJ = 0;
+        purchasedHJ = 0;
+    }
+
+    public void printOrderSummary(int userID) {
+        boolean isMember = Customer.isMember(userID);
+        if (isMember && total > 20.0) {
+            System.out.printf("\nAs a member, you get a 20%% discount! (-RM%.2f)\n", total * 0.20);
+            total *= 0.80;
+        }
+        System.out.println("\n========= ORDER SUMMARY =========");
+        double total = 0;
+        for (int i = 0; i < x; i++) {
+            System.out.printf("%-25s x%.0f - RM%.2f\n", name[i], qty[i], prices[i]);
+            total += prices[i];
+        }
+
+        if (isMember && total > 20.0) {
+            double discount = total * 0.20;
+            double discountedTotal = total - discount;
+            System.out.printf("---------------------------------\n");
+            System.out.printf("TOTAL:             RM%.2f\n", total);
+            System.out.printf("MEMBER DISCOUNT:   RM%.2f\n", discount);
+            System.out.printf("DISCOUNTED TOTAL:  RM%.2f\n", discountedTotal);
+            this.total = discountedTotal;
+            this.tprice = discountedTotal;
+        } else {
+            System.out.printf("---------------------------------\nTOTAL: RM%.2f\n", total);
+            this.total = total;
+            this.tprice = total;
+        }
+    }
+
+    public double getTotalPrice() {
+        double total = 0;
+        for (int i = 0; i < x; i++) {
+            total += prices[i];
+        }
+        this.tprice = total;
+        return total;
+    }
+
+}
