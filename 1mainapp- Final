@@ -1,235 +1,243 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class MainApp {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        char key;
-        Food foodMenu = new Food(); 
-        Beverages beverageMenu = new Beverages();
-        Order order = new Order(foodMenu, beverageMenu);
+public class Order {
+    protected double total;
+    protected double tprice;
+    protected double amt;
+    int cardNum = 0;
+    private int quantity;
+    private Food foodMenu;
+    private Beverages beverageMenu;
+    private String[] name;
+    private double[] qty;
+    private double[] prices;
+    private int x = 0;
+    private int purchasedA = 0;
+    private int purchasedD = 0;
+    private int purchasedC = 0;
+    private int purchasedWJ = 0;
+    private int purchasedHJ = 0;
+    private int A = 0;
+    private int D = 0;
+    private int C = 0;
+    private int WJ = 0;
+    private int HJ = 0;
+    Scanner input = new Scanner(System.in);
 
-        double total =0.0;
-        double tprice = 0.0;
-        double amt = 0;
-        int cardNum =0;
+    public int getPurchasedA() { return purchasedA; }
 
-        final int MAX_attempts = 3;
+    public int getPurchasedD() { return purchasedD; }
 
-        System.out.println("  ============================================");
-        System.out.println("  |  ☠️️  WELCOME TO CAFE KAPAL LAUD  ☕     |");
-        System.out.println("  ============================================");
-        System.out.println("  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
-        System.out.print("💀 Press any key [Q] to continue: ");
+    public int getPurchasedC() { return purchasedC; }
 
-        key = input.next().charAt(0);
-        input.nextLine();
-        System.out.println("");
+    public int getPurchasedWJ() { return purchasedWJ; }
 
-        int opt = -1;
-        do {
-            try {
-                System.out.println("+====================+");
-                System.out.println("|     MAIN MENU      |");
-                System.out.println("+====================+");
-                System.out.println("| 1. Admin           |");
-                System.out.println("| 2. Customer        |");
-                System.out.println("| 0. Exit            |");
-                System.out.println("+====================+");
-                System.out.print("Choose option [1/2/0]: ");
+    public int getPurchasedHJ() { return purchasedHJ; }
 
-                opt = input.nextInt();
-                input.nextLine();
-                System.out.println("");
+    public Order(Food foodMenu, Beverages beverageMenu) {
+        this.foodMenu = foodMenu;
+        this.beverageMenu = beverageMenu;
+        this.name = new String[100];
+        this.qty = new double[100];
+        this.prices = new double[100];
+    }
 
-                if (opt == 1) {
-                    // Admin Section
-                    int loginAttempts = 0;
-                    do {
-                        try {
-                            System.out.print("Enter Admin ID: ");
-                            int userID = input.nextInt();
-                            input.nextLine();
-                            System.out.print("Enter Admin Password: ");
-                            String password = input.nextLine();
+    public double[] getPrices() {
+        return prices;
+    }
 
-                            Admin admin = new Admin(userID, password, "Jamal", foodMenu, beverageMenu);
+    private void addItem(String itemName, double itemPrice, int quantity) {
+        name[x] = itemName;
+        qty[x] = quantity;
+        prices[x] = itemPrice * quantity;
+        System.out.println("✅ " + itemName + " x" + quantity + " added to your order.");
+        x++;
+    }
 
-                            if (admin.adminLogin()) {
-                                System.out.println("\nWelcome Admin, " + admin.getAdminName() + " :)");
-                                String choice;
-                                do {
-                                    System.out.println("+==============================+");
-                                    System.out.println("|   [1] View Sales             |");
-                                    System.out.println("|------------------------------|");
-                                    System.out.println("|   [2] View Items Sold        |");
-                                    System.out.println("|------------------------------|");
-                                    System.out.println("|   [3] Update Menu            |");
-                                    System.out.println("|------------------------------|");
-                                    System.out.println("|   [4] Display Customer       |");
-                                    System.out.println("|------------------------------|");
-                                    System.out.println("|   [M] Main Menu              |");
-                                    System.out.println("+==============================+");
-                                    System.out.print("Choose option [1/2/3/4/M]: ");
+    public void placeOrder(int userID) {
+        boolean continueOrdering = true;
 
-                                    choice = input.nextLine();
-                                    System.out.println("");
+        while (continueOrdering) {
+            System.out.println("\n================= FULL MENU =================");
+            System.out.println(foodMenu.getFoodList());
+            System.out.println(beverageMenu.getBeveList());
+            System.out.println("[0] to proceed with order | [X] to cancel order");
+            System.out.println("Enter item code (A/D/C/WJ/HJ):");
+            System.out.print("Your choice: ");
+            String code = input.nextLine().toUpperCase();
+            
 
-                                    switch (choice) {
-                                        case "1":
-                                            admin.disSales();
-                                            break;
-                                        case "2":
-                                            admin.disItemSold(order);
-                                            break;
-                                        case "3":
-                                            admin.updateMenu();
-                                            break;
-                                        case "4":
-                                            admin.disTotalCustomer();
-                                            break;
-                                        case "M"://works as equalsIgnoreCase
-                                        case "m"://used switch case for a cleaner code
-                                            break;
-                                        default:
-                                            System.out.println("Invalid option. Please try again.");
-                                            break;
-                                    }
-                                } while (!choice.equalsIgnoreCase("M"));
-                                break;
-                            } else {
-                                loginAttempts++;
-                                System.out.println("Error! Invalid Admin ID or password");
-                                System.out.println("Remaining attempts: " + (3 - loginAttempts));
-                            }
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input! Please enter correct data.");
-                            input.nextLine();
-                        } if (loginAttempts >= MAX_attempts){
-                            System.out.println("Maximum attempts has been reached!!! Access has been denied");
-                            break;
+            switch (code) {
+                case "A":
+                    if (foodMenu.isApCheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Burger Ayam", foodMenu.getAp(), quantity);
+                        A += quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Burger Ayam is currently out of order.");
+                    }
+                    break;
+
+                case "D":
+                    if (foodMenu.isDpCheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Burger Daging", foodMenu.getDp(), quantity);
+                        D += quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Burger Daging is currently out of order.");
+                    }
+                    break;
+
+                case "C":
+                    if (foodMenu.isCpCheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Spaghetti Carbonara", foodMenu.getCp(), quantity);
+                        C += quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Spaghetti Carbonara is currently out of order.");
+                    }
+                    break;
+
+                case "WJ":
+                    if (beverageMenu.isWJpcheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Watermelon Juice", beverageMenu.getWJp(), quantity);
+                        WJ += quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Watermelon Juice is currently out of order.");
+                    }
+                    break;
+
+                case "HJ":
+                    if (beverageMenu.isHJpcheck()) {
+                        System.out.print("Enter quantity: ");
+                        quantity = input.nextInt();
+                        input.nextLine();
+                        addItem("Honeydew Juice", beverageMenu.getHJp(), quantity);
+                        HJ += quantity;
+                    } else {
+                        System.out.println("❌ Sorry, Honeydew Juice is currently out of order.");
+                    }
+                    break;
+
+                case "0":
+                    if (x == 0) {
+                        System.out.println("⚠️ No items ordered. Cannot proceed to payment.");
+                        break;
+                    }
+
+                    continueOrdering = false;
+
+                    OrderDetail orderDetail = new OrderDetail(name, qty, prices, x, userID);
+                    double finalTotal = orderDetail.printSummaryAndGetTotal();
+
+                    this.total = finalTotal;
+                    this.tprice = finalTotal;
+
+                    System.out.println("\nHow would you like to pay?");
+                    System.out.println("[1] Cash");
+                    System.out.println("[2] Card (10% discount)");
+        
+        boolean validOption = false;
+        do{
+            System.out.print("Choose option: ");
+            int payOpt = input.nextInt();
+            
+            String result;
+            double paymentAmount = tprice;
+
+            switch (payOpt) {
+                case 1 :
+                    boolean paid = false;
+                    do{
+                        System.out.print("Enter amount: RM");
+                        amt = input.nextDouble();
+                        input.nextLine();
+                        Cash cash = new Cash(tprice, total, amt);
+                        result = cash.pay();
+                        System.out.println(result);
+                    
+                        if(!result.equals("Money not enough to pay.")){
+                            Payment.updateSaleStats(this.total);
+                            paid = true;
+                        }else{
+                            System.out.println("Please enter a valid amount.");
                         }
-                    } while (true);
-                }
+                    }while(!paid);
+                    validOption = true;
+                    break;
 
-                else if (opt == 2) {
-                    // Customer Section 😊 
-                    String choice;
-                    do {
-                        System.out.println("+=================+");
-                        System.out.println("|   [1] Sign Up   |");
-                        System.out.println("|-----------------|");
-                        System.out.println("|   [2] Login     |");
-                        System.out.println("|-----------------|");
-                        System.out.println("|   [B] Back      |");
-                        System.out.println("+=================+");
-                        System.out.print("Choose option [1/2/B]: ");
+                case 2: 
+                
+                    Card card = new Card(tprice, total, cardNum);
+                    result = card.pay();
+                    double discountedPrice = tprice * 0.9;
+                    Payment.updateSaleStats(discountedPrice);
+                    System.out.println(result);
+                    validOption = true;
+                    break;
+               
 
-                        choice = input.nextLine();
-                        System.out.println("");
-
-                        if (choice.equals("1")) {
-
-                            try {
-                                System.out.print("Enter user ID (3 integer): ");
-                                int userID = input.nextInt();
-                                input.nextLine();
-
-                                System.out.print("Enter password: ");
-                                String password = input.nextLine();
-
-                                System.out.print("Enter your name: ");
-                                String custName = input.nextLine();
-
-                                System.out.print("Do you wanna register as our member?");
-                                System.out.print("\nPress 1 if YES | Press 2 if NO: ");
-                                int option = input.nextInt();
-                                input.nextLine();
-
-                                if(option == 1){
-                                    boolean member = true;
-
-                                    Customer membership = new Membership(userID, password, custName, member);
-                                    membership.signUp();
-                                    System.out.println("");
-                                }
-                                if(option == 2){
-                                    boolean member = false;
-
-                                    Customer membership = new Membership(userID, password, custName, member);
-                                    membership.signUp();
-                                    System.out.println("");
-                                }
-                            } catch (InputMismatchException e) {
-                                System.out.println("Invalid input! Please try again.");
-                                input.nextLine();
-                            }
-                        }
-
-                        else if (choice.equals("2")) {
-                            int loginAttempts = 0;
-                            do {
-                                try {
-                                    System.out.print("Enter user ID (3 integer): ");
-                                    int userID = input.nextInt();
-                                    input.nextLine();
-
-                                    System.out.print("Enter password: ");
-                                    String password = input.nextLine();
-
-                                    boolean isMember = Customer.isMember(userID);
-                                    Customer user;
-
-                                    if(isMember){
-                                        user = new Membership(userID, password, "", true);
-                                    }
-                                    else{
-                                        user = new Membership(userID, password, "", false);
-                                    }
-
-                                    if (user.login()) {
-                                        System.out.println("Login successful!");
-                                        System.out.println("Welcome, " + user.getCustName() + "!");
-                                        order.clearOrder();
-                                        order.placeOrder(userID);
-                                        break;
-
-                                    }else {
-                                        loginAttempts++;
-                                        System.out.println("Invalid User ID or password :(");
-                                        System.out.println("Remaining attempts: " + (3 - loginAttempts));
-                                    }
-                                } catch (InputMismatchException e) {
-                                    System.out.println("Invalid input. Please enter numbers only.");
-                                    input.nextLine();
-                                }
-                                if (loginAttempts >= MAX_attempts){
-                                    System.out.println("Maximum attempt has been reached!!! Returning back to Customer Section");
-                                    break;
-                                }
-                            } while (true);
-                        }
-
-                        else if (choice.equalsIgnoreCase("B")) {
-                            break;
-                        } else {
-                            System.out.println("Invalid option. Enter again.");
-                        }
-                    } while (!choice.equalsIgnoreCase("B"));
-                }
-                else if (opt == 0) {
-                    System.out.println("+=========================================+");
-                    System.out.println("|   😊 Thank you for using our system!    |");
-                    System.out.println("+=========================================+");
-
-                    System.exit(0);
-                } else {
-                    System.out.println("Invalid input, try again.");
-                }
-
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input! Please enter numbers only.");
-                input.nextLine();
+                default: 
+                    System.out.println("Invalid payment option selected.");
+                    break;
             }
-        } while (opt != 0);
+        }while(!validOption);
+
+                    break;
+
+                case "X":
+                    A = 0;
+                    D = 0;
+                    C = 0;
+                    WJ = 0;
+                    HJ = 0;
+                    clearOrder();
+                    System.out.println("❌ Order cancelled. Returning to login menu");
+
+                    return;
+
+                default:
+                    System.out.println("⚠️ Invalid code. Please try again.");
+            }
+        }
+        purchasedA += A;
+        purchasedD += D;
+        purchasedC += C;
+        purchasedWJ += WJ;
+        purchasedHJ += HJ;
+        input.nextLine();
+    }
+
+    public void clearOrder() {
+        x = 0;
+        for (int i = 0; i < name.length; i++) {
+            name[i] = null;
+            qty[i] = 0;
+            prices[i] = 0;
+            quantity = 0;
+            A = 0;
+            D = 0;
+            C = 0;
+            WJ = 0;
+            HJ = 0;
+        }
+    }
+
+    public double getTotalPrice() {
+        double total = 0;
+        for (int i = 0; i < x; i++) {
+            total += prices[i];
+        }
+        this.tprice = total;
+        return total;
     }
 }
