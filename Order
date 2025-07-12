@@ -142,10 +142,10 @@ public class Order {
                     this.tprice = finalTotal;
 
                    System.out.println("\nHow would you like to pay?");
-        System.out.println("[1] Cash");
-        System.out.println("[2] Card (10% discount)");
+                   System.out.println("[1] Cash");
+                   System.out.println("[2] Card (10% discount)");
         
-        boolean validOption = false;
+                   boolean validOption = false;
         do{
             System.out.print("Choose option: ");
             int payOpt = input.nextInt();
@@ -217,6 +217,12 @@ public class Order {
 
     public void clearOrder() {
         x = 0;
+        quantity = 0;
+        A = 0;
+        D = 0;
+        C = 0;
+        WJ = 0;
+        HJ = 0;
         for (int i = 0; i < name.length; i++) {
             name[i] = null;
             qty[i] = 0;
