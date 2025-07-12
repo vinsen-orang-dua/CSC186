@@ -65,6 +65,7 @@ public class Order {
             System.out.println("Enter item code (A/D/C/WJ/HJ):");
             System.out.print("Your choice: ");
             String code = input.nextLine().toUpperCase();
+            
 
             switch (code) {
                 case "A":
@@ -141,11 +142,11 @@ public class Order {
                     this.total = finalTotal;
                     this.tprice = finalTotal;
 
-                   System.out.println("\nHow would you like to pay?");
-                   System.out.println("[1] Cash");
-                   System.out.println("[2] Card (10% discount)");
+                    System.out.println("\nHow would you like to pay?");
+                    System.out.println("[1] Cash");
+                    System.out.println("[2] Card (10% discount)");
         
-                   boolean validOption = false;
+        boolean validOption = false;
         do{
             System.out.print("Choose option: ");
             int payOpt = input.nextInt();
@@ -212,21 +213,22 @@ public class Order {
         purchasedD += D;
         purchasedC += C;
         purchasedWJ += WJ;
-        purchasedHJ += HJ;   
+        purchasedHJ += HJ;
+        input.nextLine();
     }
 
     public void clearOrder() {
         x = 0;
-        quantity = 0;
-        A = 0;
-        D = 0;
-        C = 0;
-        WJ = 0;
-        HJ = 0;
         for (int i = 0; i < name.length; i++) {
             name[i] = null;
             qty[i] = 0;
             prices[i] = 0;
+            quantity = 0;
+            A = 0;
+            D = 0;
+            C = 0;
+            WJ = 0;
+            HJ = 0;
         }
     }
 
